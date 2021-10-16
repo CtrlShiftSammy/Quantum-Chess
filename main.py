@@ -25,24 +25,7 @@ bb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bb.png')),
 bn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bn.png')), (100, 100))
 bp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bp.png')), (100, 100))
 
-offset_br1_x, offset_br1_y = 0, 0
-offset_br2_x, offset_br2_y = 0, 0
-offset_bn1_x, offset_bn1_y = 0, 0
-offset_bn2_x, offset_bn2_y = 0, 0
-offset_bb1_x, offset_bb1_y = 0, 0
-offset_bb2_x, offset_bb2_y = 0, 0
-offset_bq_x, offset_bq_y = 0, 0
-offset_bk_x, offset_bk_y = 0, 0
-offset_wr1_x, offset_wr1_y = 0, 0
-offset_wr2_x, offset_wr2_y = 0, 0
-offset_wn1_x, offset_wn1_y = 0, 0
-offset_wn2_x, offset_wn2_y = 0, 0
-offset_wb1_x, offset_wb1_y = 0, 0
-offset_wb2_x, offset_wb2_y = 0, 0
-offset_wq_x, offset_wq_y = 0, 0
-offset_wk_x, offset_wk_y = 0, 0
-
-offset = np.empty(shape = (8, 4, 3))
+offset = np.empty(shape = (8, 4, 4)) #ij0 = x, ij1 = y, ij2 = 0/1 where 0 is captured, ij3 = 0/1/2/3/4 -> not promoted, Q, R, B, N
 for i in range(8):
     for j in range(4):
         offset[i, j, 0], offset[i, j, 1], offset[i, j, 2] = 0, 0, 1
