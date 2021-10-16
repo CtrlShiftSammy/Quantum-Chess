@@ -12,30 +12,18 @@ dark_square_colour = (102, 0, 51)
 
 fps = 60
 
-wk = pygame.image.load(os.path.join('Assets', 'wk.png'))
-wk = pygame.transform.scale(wk, (100, 100))
-wq = pygame.image.load(os.path.join('Assets', 'wq.png'))
-wq = pygame.transform.scale(wq, (100, 100))
-wr = pygame.image.load(os.path.join('Assets', 'wr.png'))
-wr = pygame.transform.scale(wr, (100, 100))
-wb = pygame.image.load(os.path.join('Assets', 'wb.png'))
-wb = pygame.transform.scale(wb, (100, 100))
-wn = pygame.image.load(os.path.join('Assets', 'wn.png'))
-wn = pygame.transform.scale(wn, (100, 100))
-wp = pygame.image.load(os.path.join('Assets', 'wp.png'))
-wp = pygame.transform.scale(wp, (100, 100))
-bk = pygame.image.load(os.path.join('Assets', 'bk.png'))
-bk = pygame.transform.scale(bk, (100, 100))
-bq = pygame.image.load(os.path.join('Assets', 'bq.png'))
-bq = pygame.transform.scale(bq, (100, 100))
-br = pygame.image.load(os.path.join('Assets', 'br.png'))
-br = pygame.transform.scale(br, (100, 100))
-bb = pygame.image.load(os.path.join('Assets', 'bb.png'))
-bb = pygame.transform.scale(bb, (100, 100))
-bn = pygame.image.load(os.path.join('Assets', 'bn.png'))
-bn = pygame.transform.scale(bn, (100, 100))
-bp = pygame.image.load(os.path.join('Assets', 'bp.png'))
-bp = pygame.transform.scale(bp, (100, 100))
+wk = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wk.png')), (100, 100))
+wq = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wq.png')), (100, 100))
+wr = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wr.png')), (100, 100))
+wb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wb.png')), (100, 100))
+wn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wn.png')), (100, 100))
+wp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wp.png')), (100, 100))
+bk = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bk.png')), (100, 100))
+bq = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bq.png')), (100, 100))
+br = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'br.png')), (100, 100))
+bb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bb.png')), (100, 100))
+bn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bn.png')), (100, 100))
+bp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bp.png')), (100, 100))
 
 offset_br1_x, offset_br1_y = 0, 0
 offset_br2_x, offset_br2_y = 0, 0
@@ -73,6 +61,7 @@ def main():
             for j in range(8):
                 if ((i + j)%2 == 1):
                     pygame.draw.rect(window, dark_square_colour, pygame.Rect(50 + i * 100, 50 + j * 100, 100, 100))
+        
         for i in range(8):
             for j in range(8):
                 if (j == 0):
