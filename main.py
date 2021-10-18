@@ -7,9 +7,9 @@ width, height = 1200, 900
 window = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Quantum Chess v0.0")
 
-background_colour = (132, 86, 60)
-light_square_colour = (255, 255, 204)
-dark_square_colour = (194, 139, 109)
+background_colour = (0, 51, 102)
+light_square_colour = (201, 223, 254)
+dark_square_colour = (107, 151, 185)
 
 fps = 60
 
@@ -26,10 +26,16 @@ bb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bb.png')),
 bn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bn.png')), (100, 100))
 bp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bp.png')), (100, 100))
 
-offset = np.empty(shape = (8, 4, 4)) #ij0 = x, ij1 = y, ij2 = 0/1 where 0 is captured, ij3 = 0/1/2/3/4 -> not promoted, Q, R, B, N
-for i in range(8):
-    for j in range(4):
-        offset[i, j, 0], offset[i, j, 1], offset[i, j, 2],  offset[i, j, 3] = 0, 0, 1, 0
+offset = np.empty(shape = (8, 4, 9)) 
+# ij0 = x, ij1 = y, 
+# ij2 = 0/1 where 0 is captured, 
+# ij3 = 0/1/2/3/4 -> not promoted, R/ N/ B/ Q
+# ij4 = 0/1 -> cant castle, castle short 
+# ij5 = 0/1 -> cant castle, castle long, 
+# ij6 = 0, 1, 2, 3, 4, 5, 6 -> option 1 R/ N/ B/ Q/ P/ K/ ?,
+# ij7 = 0, 1, 2, 3, 4, 5, 6 -> option 2 R/ N/ B/ Q/ P/ K/ ?, 
+# ij8 = 0, 1 -> current state choice 1/ 2
+
 
 def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
     if drag_j == 1:
@@ -116,6 +122,7 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
                         return (False if b > 1 else True)
         elif drag_i == 2 or drag_i == 5: # bishops
+            #print(i, j, pick_i, pick_j)
             if pick_i < i and pick_j < j: # NW
                 for a in range(8):
                     for b in range(4):
@@ -129,7 +136,7 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                             l += 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
                             return False
-            elif pick_i < i and pick_j > j: # SW
+            elif pick_i > i and pick_j < j: # SW
                 for a in range(8):
                     for b in range(4):
                         #for k in (j + 1, pick_j): #no piece in between
@@ -142,7 +149,7 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                             l += 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
                             return False
-            elif pick_i > i and pick_j < j: # NE
+            elif pick_i < i and pick_j > j: # NE
                 for a in range(8):
                     for b in range(4):
                         #for k in (pick_i + 1, i): #no piece in between
@@ -341,7 +348,7 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                             l += 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
                             return False
-            elif pick_i < i and pick_j > j: # SW
+            elif pick_i > i and pick_j < j: # SW
                 for a in range(8):
                     for b in range(4):
                         #for k in (j + 1, pick_j): #no piece in between
@@ -354,7 +361,7 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                             l += 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
                             return False
-            elif pick_i > i and pick_j < j: # NE
+            elif pick_i < i and pick_j > j: # NE
                 for a in range(8):
                     for b in range(4):
                         #for k in (pick_i + 1, i): #no piece in between
@@ -485,32 +492,46 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1:
                         return False
     return True
-
+def can_castle(drag_i, drag_j, pick_i, pick_j, i, j):
+    a = 0
+    while a < 8:
+        b = 0
+        while b < 4:
+            if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
+                return False
+            b += 1
+        a += 1
+    return True
 def legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j):
         # pick ij -> ij
         if pick_i == i and pick_j == j:
             return False
         if whites_turn:
-            if drag_j == 2:
+            if offset[i, j, 6] == 4:
                 if (pick_j == j + 1) and (pick_i == i or pick_i == i + 1 or pick_i == i - 1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
                 elif (pick_j == 6) and (j == 4) and (pick_i == i) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j+1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
             elif drag_j == 3:
-                if drag_i == 0 or drag_i == 7:
+                if offset[i, j, 6] == 0:
                     if (pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif drag_i == 1 or drag_i == 6:
+                elif offset[i, j, 6] == 1:
                     if ((abs(pick_i - i) == 2 and abs(pick_j - j) == 1) or (abs(pick_i - i) == 1 and abs(pick_j - j) == 2)) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif drag_i == 2 or drag_i == 5:
+                elif offset[i, j, 6] == 2:
+                    #print(i, j, check_empty(drag_i, drag_j, pick_i, pick_j, i, j))
                     if abs(pick_i - i) == abs(pick_j - j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif drag_i == 3:
+                elif offset[i, j, 6] == 3:
                     if (abs(pick_i - i) == abs(pick_j - j) or pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif drag_i == 4:
+                elif offset[i, j, 6] == 5:
                     if (abs(pick_i - i) <= 1 and abs(pick_j - j) <= 1) and (abs(pick_i - i) == abs(pick_j - j) or pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
+                        return True
+                    elif offset[drag_i, drag_j, 4] == 1 and (pick_j == j) and i == 6 and can_castle(drag_i, drag_j, pick_i, pick_j, i, j) and can_castle(drag_i, drag_j, pick_i, pick_j, i-1, j):
+                        return True
+                    elif offset[drag_i, drag_j, 4] == 1 and (pick_j == j) and i == 2 and can_castle(drag_i, drag_j, pick_i, pick_j, i, j) and can_castle(drag_i, drag_j, pick_i, pick_j, i-1, j) and can_castle(drag_i, drag_j, pick_i, pick_j, i+1, j):
                         return True
             return False
         else:
@@ -535,6 +556,10 @@ def legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j):
                 elif drag_i == 4:
                     if (abs(pick_i - i) <= 1 and abs(pick_j - j) <= 1) and (abs(pick_i - i) == abs(pick_j - j) or pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
+                    elif offset[drag_i, drag_j, 4] == 1 and (pick_j == j) and i == 6 and can_castle(drag_i, drag_j, pick_i, pick_j, i, j) and can_castle(drag_i, drag_j, pick_i, pick_j, i-1, j):
+                        return True
+                    elif offset[drag_i, drag_j, 4] == 1 and (pick_j == j) and i == 2 and can_castle(drag_i, drag_j, pick_i, pick_j, i, j) and can_castle(drag_i, drag_j, pick_i, pick_j, i-1, j) and can_castle(drag_i, drag_j, pick_i, pick_j, i+1, j):
+                        return True
             return False
 def main():
     clock = pygame.time.Clock()
@@ -546,6 +571,22 @@ def main():
     click_y = 0
     pick_i = 0
     pick_j = 0
+    for i in range(8):
+        for j in range(4):
+            offset[i, j, 0], offset[i, j, 1], offset[i, j, 2], offset[i, j, 3],  offset[i, j, 4], offset[i, j, 5], offset[i, j, 7], = 0, 0, 1, 0, (1 if i == 4 else 0), (1 if i == 4 else 0), 6
+            if offset[i, j, 1] == 1 or offset[i, j, 1] == 2:
+                offset[i, j, 6] = 4
+            else:
+                if i == 0 or i == 7:
+                    offset[i, j, 6] = 0
+                elif i == 1 or i == 6:
+                    offset[i, j, 6] = 1
+                elif i == 2 or i == 5:
+                    offset[i, j, 6] = 2
+                elif i == 3:
+                    offset[i, j, 6] = 3
+                else:
+                    offset[i, j, 6] = 5
     whites_turn = True
     while run:
         clock.tick(fps)
@@ -582,6 +623,11 @@ def main():
                                 whites_turn = True
                             offset[drag_i, drag_j, 0] = offset[drag_i, drag_j, 0] + (i - pick_i) * 100
                             offset[drag_i, drag_j, 1] = offset[drag_i, drag_j, 1] + (j - pick_j) * 100
+                            if pick_j == j and drag_i == 4 and abs(pick_i - i) == 2:
+                                if pick_i > i:
+                                    offset[0, drag_j, 0] = offset[0, drag_j, 0] + 300
+                                else:
+                                    offset[7, drag_j, 0] = offset[7, drag_j, 0] - 200
                         elif drag and (mouse_x > 50 + i * 100) and (mouse_x < 50 + (i + 1) * 100) and (mouse_y > 50 + j * 100) and (mouse_y < 50 + (j + 1) * 100):
                             drag = False
         window.fill(background_colour)
