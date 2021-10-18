@@ -111,7 +111,8 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     #if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
                     #    return False
         elif drag_i == 1 or drag_i == 6: # knights
-            
+            for a in range(8):
+                for b in range(4):
     return True
 
 def legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j):
@@ -129,12 +130,8 @@ def legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j):
                     if (pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
                 elif drag_i == 1 or drag_i == 6:
-                    if abs(pick_i - i) == 2:
-                        if abs(pick_j - j) == 1:
-                            return True
-                    elif abs(pick_j - j) == 2:
-                        if abs(pick_i - i) == 1:
-                            return True
+                    if (abs(pick_i - i) == 2 and abs(pick_j - j) == 1) or (abs(pick_i - i) == 1 and abs(pick_j - j) == 2):
+                        return True
                 elif drag_i == 2 or drag_i == 5:
                     if abs(pick_i - i) == abs(pick_j - j):
                         return True
