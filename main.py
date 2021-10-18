@@ -7,7 +7,7 @@ width, height = 1200, 900
 window = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Quantum Chess v0.0")
 
-background_colour = (128, 128, 128)
+background_colour = (132, 86, 60)
 light_square_colour = (255, 255, 204)
 dark_square_colour = (194, 139, 109)
 
@@ -32,22 +32,86 @@ for i in range(8):
         offset[i, j, 0], offset[i, j, 1], offset[i, j, 2],  offset[i, j, 3] = 0, 0, 1, 0
 
 def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
-    for a in range(8):
-        for b in range(4):
-            if drag_j == 1: # if black pawn
-                if a + offset[a, b, 0] == i and b + (4 if b > 1 else 0) + offset[a, b, 1] == j and offset[a, b, 2] == 1: # if there is piece in ij
-                    if i == pick_i: # if forward
+    if drag_j == 1:
+        if pick_i == i: #forward
+            for a in range(8):
+                for b in range(4):
+                    if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
                         return False
-                    elif abs(i - pick_i) == 1: # if diagonal
-                        if b > 1: # white piece
-                            return True
-                        else:
-                            return False
-            elif drag_j == 2:
-                
-                    
-                        
-                
+        elif abs(pick_i - i) == 1: #diagonal
+            for a in range(8):
+                for b in range(4):
+                    if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
+                        return (False if b <= 1 else True)
+            return False
+        else:
+            return False
+    elif drag_j == 2:
+        if pick_i == i: #forward
+            for a in range(8):
+                for b in range(4):
+                    if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
+                        return False
+        elif abs(pick_i - i) == 1: #diagonal
+            for a in range(8):
+                for b in range(4):
+                    if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
+                        return (False if b > 1 else True)
+            return False
+        else:
+            return False
+    elif drag_j == 3: # white pieces
+        if drag_i == 0 or drag_i == 7: # rooks
+            if pick_i == i: # vertical
+                if pick_j < j: # top to bottom
+                    for a in range(8):
+                        for b in range(4):
+                            #for k in (pick_j + 1, j): #no piece in between
+                            k = pick_j + 1
+                            while k < j:
+                                if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == k and offset[a, b, 2] == 1: #if piece
+                                    return False
+                                k += 1
+                            if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if whie piece at end
+                                return False
+                else: # bottom to top
+                    for a in range(8):
+                        for b in range(4):
+                            #for k in (j + 1, pick_j): #no piece in between
+                            k = j + 1
+                            while k < pick_j:
+                                if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == k and offset[a, b, 2] == 1: #if piece
+                                    return False
+                                k += 1
+                            if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if whie piece at end
+                                return False
+            elif pick_j == j: # horizontal
+                if pick_i < i: # left to right
+                    for a in range(8):
+                        for b in range(4):
+                            #for k in (pick_i + 1, i): #no piece in between
+                            k = pick_i + 1
+                            while k < i:
+                                if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
+                                    return False
+                                k += 1
+                            if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if whie piece at end
+                                return False
+                else: # right to left
+                    for a in range(8):
+                        for b in range(4):
+                            #for k in (i + 1, pick_i): #no piece in between
+                            k = i + 1
+                            while k < pick_i:
+                                if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
+                                    return False
+                                k += 1
+                            if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if whie piece at end
+                                return False
+                    #if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
+                    #    return False
+        elif drag_i == 1 or drag_i == 6: # knights
+            
     return True
 
 def legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j):
@@ -56,16 +120,13 @@ def legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j):
             return False
         if whites_turn:
             if drag_j == 2:
-                if (pick_j == j + 1) and (pick_i == i or pick_i == i+1 or pick_i == i-1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
+                if (pick_j == j + 1) and (pick_i == i or pick_i == i + 1 or pick_i == i - 1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
-                elif (pick_j == 6) and (j == 4) and (pick_i == i) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j-1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
+                elif (pick_j == 6) and (j == 4) and (pick_i == i) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j+1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
-                    
             elif drag_j == 3:
                 if drag_i == 0 or drag_i == 7:
-                    if pick_i == i:
-                        return True
-                    elif pick_j == j:
+                    if (pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
                 elif drag_i == 1 or drag_i == 6:
                     if abs(pick_i - i) == 2:
@@ -95,9 +156,9 @@ def legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j):
             return False
         else:
             if drag_j == 1:
-                if (pick_j == j - 1) and (pick_i == i or pick_i == i+1 or pick_i == i-1):
+                if (pick_j == j - 1) and (pick_i == i or pick_i == i + 1 or pick_i == i - 1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
-                elif (pick_j == 1) and (j == 3) and (pick_i == i):
+                elif (pick_j == 1) and (j == 3) and (pick_i == i) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j-1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
             elif drag_j == 0:
                 if drag_i == 0 or drag_i == 7:
