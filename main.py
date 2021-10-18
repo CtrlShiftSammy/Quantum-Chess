@@ -1,17 +1,19 @@
 import pygame
 import os
 import numpy as np
-from pygame.constants import MOUSEBUTTONDOWN, MOUSEBUTTONUP
+from pygame.constants import BUTTON_RIGHT, MOUSEBUTTONDOWN, MOUSEBUTTONUP
 
 width, height = 1200, 900
 window = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Quantum Chess v0.0")
 
 background_colour = (0, 51, 102)
-light_square_colour = (201, 223, 254)
-dark_square_colour = (107, 151, 185)
+light_square_colour = (201,223,254)
+dark_square_colour = (107,151,185)
 
 fps = 60
+
+background = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'background.jpg')), (1200, 900))
 
 wk = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wk.png')), (100, 100))
 wq = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wq.png')), (100, 100))
@@ -507,26 +509,26 @@ def legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j):
         if pick_i == i and pick_j == j:
             return False
         if whites_turn:
-            if offset[i, j, 6] == 4:
+            if offset[drag_i, drag_j, 6] == 4:
                 if (pick_j == j + 1) and (pick_i == i or pick_i == i + 1 or pick_i == i - 1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
                 elif (pick_j == 6) and (j == 4) and (pick_i == i) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j+1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
             elif drag_j == 3:
-                if offset[i, j, 6] == 0:
+                if offset[drag_i, drag_j, 6] == 0:
                     if (pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif offset[i, j, 6] == 1:
+                elif offset[drag_i, drag_j, 6] == 1:
                     if ((abs(pick_i - i) == 2 and abs(pick_j - j) == 1) or (abs(pick_i - i) == 1 and abs(pick_j - j) == 2)) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif offset[i, j, 6] == 2:
+                elif offset[drag_i, drag_j, 6] == 2:
                     #print(i, j, check_empty(drag_i, drag_j, pick_i, pick_j, i, j))
                     if abs(pick_i - i) == abs(pick_j - j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif offset[i, j, 6] == 3:
+                elif offset[drag_i, drag_j, 6] == 3:
                     if (abs(pick_i - i) == abs(pick_j - j) or pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif offset[i, j, 6] == 5:
+                elif offset[drag_i, drag_j, 6] == 5:
                     if (abs(pick_i - i) <= 1 and abs(pick_j - j) <= 1) and (abs(pick_i - i) == abs(pick_j - j) or pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
                     elif offset[drag_i, drag_j, 4] == 1 and (pick_j == j) and i == 6 and can_castle(drag_i, drag_j, pick_i, pick_j, i, j) and can_castle(drag_i, drag_j, pick_i, pick_j, i-1, j):
@@ -535,25 +537,25 @@ def legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
             return False
         else:
-            if drag_j == 1:
+            if offset[drag_i, drag_j, 6] == 4:
                 if (pick_j == j - 1) and (pick_i == i or pick_i == i + 1 or pick_i == i - 1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
                 elif (pick_j == 1) and (j == 3) and (pick_i == i) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j-1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
             elif drag_j == 0:
-                if drag_i == 0 or drag_i == 7:
+                if offset[drag_i, drag_j, 6] == 0:
                     if (pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif drag_i == 1 or drag_i == 6:
+                elif offset[drag_i, drag_j, 6] == 1:
                     if ((abs(pick_i - i) == 2 and abs(pick_j - j) == 1) or (abs(pick_i - i) == 1 and abs(pick_j - j) == 2)) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif drag_i == 2 or drag_i == 5:
+                elif offset[drag_i, drag_j, 6] == 2:
                     if abs(pick_i - i) == abs(pick_j - j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif drag_i == 3:
+                elif offset[drag_i, drag_j, 6] == 3:
                     if (abs(pick_i - i) == abs(pick_j - j) or pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif drag_i == 4:
+                elif offset[drag_i, drag_j, 6] == 5:
                     if (abs(pick_i - i) <= 1 and abs(pick_j - j) <= 1) and (abs(pick_i - i) == abs(pick_j - j) or pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
                     elif offset[drag_i, drag_j, 4] == 1 and (pick_j == j) and i == 6 and can_castle(drag_i, drag_j, pick_i, pick_j, i, j) and can_castle(drag_i, drag_j, pick_i, pick_j, i-1, j):
@@ -574,7 +576,7 @@ def main():
     for i in range(8):
         for j in range(4):
             offset[i, j, 0], offset[i, j, 1], offset[i, j, 2], offset[i, j, 3],  offset[i, j, 4], offset[i, j, 5], offset[i, j, 7], = 0, 0, 1, 0, (1 if i == 4 else 0), (1 if i == 4 else 0), 6
-            if offset[i, j, 1] == 1 or offset[i, j, 1] == 2:
+            if j == 1 or j == 2:
                 offset[i, j, 6] = 4
             else:
                 if i == 0 or i == 7:
@@ -616,6 +618,10 @@ def main():
                                     if k * 100 + offset[k, l, 0] == i * 100 and (l + (4 if l > 1 else 0)) * 100 + offset[k, l, 1] == j * 100:
                                         if k * 100 + offset[k, l, 0] != pick_i * 100 or (l + (4 if l > 1 else 0)) * 100 + offset[k, l, 1] != pick_j * 100: #remove after adding legal check
                                             offset[k, l, 2] = 0
+                                            if j == 0 and (k == 0 or k == 7):
+                                                offset[4, (0 if drag_j <= 1 else 3), 5] == 0
+                                            if j == 7 and (k == 0 or k == 7):
+                                                offset[4, (0 if drag_j <= 1 else 3), 4] == 0
                             drag = False
                             if whites_turn:
                                 whites_turn = False
@@ -623,19 +629,37 @@ def main():
                                 whites_turn = True
                             offset[drag_i, drag_j, 0] = offset[drag_i, drag_j, 0] + (i - pick_i) * 100
                             offset[drag_i, drag_j, 1] = offset[drag_i, drag_j, 1] + (j - pick_j) * 100
-                            if pick_j == j and drag_i == 4 and abs(pick_i - i) == 2:
+                            if drag_i == 4 and (drag_j == 0 or drag_j == 3):
+                                offset[4, (0 if drag_j <= 1 else 3), 4] == 0
+                                offset[4, (0 if drag_j <= 1 else 3), 5] == 0
+                            elif drag_i == 0 and (drag_j == 0 or drag_j == 3):
+                                offset[4, (0 if drag_j <= 1 else 3), 5] == 0
+                            elif drag_i == 7 and (drag_j == 0 or drag_j == 3):
+                                offset[4, (0 if drag_j <= 1 else 3), 4] == 0
+                            if pick_j == j and drag_i == 4 and abs(pick_i - i) == 2: # move the rook while castling
+                                offset[4, (0 if drag_j <= 1 else 3), 4] == 0
+                                offset[4, (0 if drag_j <= 1 else 3), 5] == 0
                                 if pick_i > i:
                                     offset[0, drag_j, 0] = offset[0, drag_j, 0] + 300
                                 else:
                                     offset[7, drag_j, 0] = offset[7, drag_j, 0] - 200
                         elif drag and (mouse_x > 50 + i * 100) and (mouse_x < 50 + (i + 1) * 100) and (mouse_y > 50 + j * 100) and (mouse_y < 50 + (j + 1) * 100):
                             drag = False
-        window.fill(background_colour)
-        pygame.draw.rect(window, light_square_colour, pygame.Rect(50, 50, 800, 800))
+        #window.fill(background_colour)
+        window.blit(background, (0, 0))
+        l = pygame.Surface((800,800))
+        l.set_alpha(229)
+        l.fill(light_square_colour)
+        window.blit(l, (50,50))
+        #pygame.draw.rect(window, light_square_colour, pygame.Rect(50, 50, 800, 800))
         for i in range(8):
             for j in range(8):
                 if ((i + j)%2 == 1):
-                    pygame.draw.rect(window, dark_square_colour, pygame.Rect(50 + i * 100, 50 + j * 100, 100, 100))
+                    d = pygame.Surface((100,100))
+                    d.set_alpha(229)
+                    d.fill(dark_square_colour)
+                    window.blit(d, (50 + i * 100, 50 + j * 100))
+                    #pygame.draw.rect(window, dark_square_colour, pygame.Rect(50 + i * 100, 50 + j * 100, 100, 100))
         
         for i in range(8):
             for j in range(4):
