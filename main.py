@@ -3,10 +3,18 @@ import os
 import numpy as np
 import random
 from pygame.constants import BUTTON_RIGHT, MOUSEBUTTONDOWN, MOUSEBUTTONUP
+from qiskit import QuantumRegister, ClassicalRegister,QuantumCircuit, execute,IBMQ
+from qiskit.tools.monitor import job_monitor
+IBMQ.save_account('6b5dce45561a72edd27ccd67f0a724eb1466ef5b1af9b927afe5dd2314d236f79db0b775ac8fabeadb56b669594e79cdf73c728e3b007c525761c85879401a3a', overwrite=True)
+IBMQ.load_account()
+provider = IBMQ.get_provider(hub='ibm-q')
+
+ 
+arr = [[0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1]]
 
 width, height = 1200, 900
 window = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Quantum Chess v0.0")
+pygame.display.set_caption("Quantum Chess v1.0")
 
 background_colour = (0, 51, 102)
 light_square_colour = (201,223,254)
@@ -41,16 +49,16 @@ bb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bb.png')),
 bn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bn.png')), (100, 100))
 bp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bp.png')), (100, 100))
 
-bqr = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wqr.png')), (100, 100))
-bqb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wqb.png')), (100, 100))
-bqn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wqn.png')), (100, 100))
-bqp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wqp.png')), (100, 100))
-brb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wrb.png')), (100, 100))
-brn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wrn.png')), (100, 100))
-brp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wrp.png')), (100, 100))
-bbn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wbn.png')), (100, 100))
-bbp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wbp.png')), (100, 100))
-bnp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wnp.png')), (100, 100))
+bqr = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bqr.png')), (100, 100))
+bqb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bqb.png')), (100, 100))
+bqn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bqn.png')), (100, 100))
+bqp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bqp.png')), (100, 100))
+brb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'brb.png')), (100, 100))
+brn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'brn.png')), (100, 100))
+brp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'brp.png')), (100, 100))
+bbn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bbn.png')), (100, 100))
+bbp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bbp.png')), (100, 100))
+bnp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bnp.png')), (100, 100))
 
 offset = np.empty(shape = (8, 4, 9)) 
 # ij0 = x, ij1 = y, 
@@ -62,6 +70,43 @@ offset = np.empty(shape = (8, 4, 9))
 # ij7 = 0, 1, 2, 3, 4, 5, 6 -> option 2 R/ N/ B/ Q/ P/ K 
 # ij8 = 0, 1 -> current state choice 1/ 2
 
+def qrandom(n1):
+    q = QuantumRegister(n1,'q')
+    c = ClassicalRegister(n1,'c')
+    circuit = QuantumCircuit(q,c) 
+    circuit.h(q) # Applies hadamard gate to all qubits
+    circuit.measure(q,c) # Measures all qubits 
+    backend = provider.get_backend('ibmq_qasm_simulator')
+    job = execute(circuit, backend, shots=1)                 
+    counts = job.result().get_counts()
+    return counts
+def choosepair(numarray,n,result):
+    #numarray is a 2D list of n pairs
+    a = qrandom(n)
+    akey = ''
+    i = 0
+    for key in a.keys():
+        akey = key
+    for i in range(n):
+        if akey[i] == '0':
+            result[i] = numarray[i][0]
+        else:
+            result[i] = numarray[i][1]
+    return result
+def q_choice(num5):
+    a = qrandom(3)
+    if '000' in a.keys():
+        return num5[0]
+    elif '001' in a.keys():
+        return num5[1]
+    elif '010' in a.keys():
+        return num5[2]
+    elif '011' in a.keys():
+        return num5[3]
+    elif '100' in a.keys():
+        return num5[4]
+    else:
+        q_choice(num5)
 def piece_still(drag_i, drag_j):
     if drag_j > 1:
         if offset[drag_i, drag_j, 6] == 0:
@@ -718,6 +763,7 @@ def main():
     click_y = 0
     pick_i = 0
     pick_j = 0
+    list01x32 = [[0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1]]
     for i in range(8):
         for j in range(4):
             list01 = [0, 1]
@@ -741,6 +787,7 @@ def main():
             else:
                 list01234 = [0, 1, 2, 3, 4]
                 offset[i, j, 7] = (random.choice(list01234)) # classical randomize pieces associated here 0/ 1/ 2/ 3/ 4
+                #offset[i, j, 7] = q_choice(list01234)
     whites_turn = True
     while run:
         clock.tick(fps)
@@ -779,6 +826,13 @@ def main():
                                 whites_turn = False
                             else:
                                 whites_turn = True
+                            chosen32 = [0 for m in range(32)]
+                            chosen32 = choosepair(list01x32, 32, chosen32)
+                            for a in range(8):
+                                for b in range(4):
+                                    list01 = [0, 1]
+                                    #offset[a, b, 8] = (random.choice(list01)) # classical randomize between 0 and 1
+                                    offset[a, b, 8] = chosen32[int(4 * a + b)] # quantum randomize between 0 and 1
                             offset[drag_i, drag_j, 0] = offset[drag_i, drag_j, 0] + (i - pick_i) * 100
                             offset[drag_i, drag_j, 1] = offset[drag_i, drag_j, 1] + (j - pick_j) * 100
                             if drag_i == 4 and (drag_j == 0 or drag_j == 3):
@@ -826,6 +880,7 @@ def main():
         pygame.display.update()
     
     pygame.quit()
+IBMQ.disable_account()
 
 if __name__ == '__main__':
     main()
