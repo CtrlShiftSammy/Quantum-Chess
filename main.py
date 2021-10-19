@@ -62,7 +62,7 @@ bbn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bbn.png')
 bbp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bbp.png')), (100, 100))
 bnp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bnp.png')), (100, 100))
 
-rep = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'greyreplay.png')), (100, 100))
+rep = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'replay.png')), (100, 100))
 
 offset = np.empty(shape = (8, 4, 9)) 
 # ij0 = x, ij1 = y, 
@@ -792,8 +792,8 @@ def main():
                offset[i, j, 7] = 5 # keeping the king classical
             else:
                 list01234 = [0, 1, 2, 3, 4]
-                #offset[i, j, 7] = (random.choice(list01234)) # classical randomize pieces associated here 0/ 1/ 2/ 3/ 4
-                offset[i, j, 7] = q_choice(list01234) # quantum randomize pieces associated here 0/ 1/ 2/ 3/ 4
+                offset[i, j, 7] = (random.choice(list01234)) # classical randomize pieces associated here 0/ 1/ 2/ 3/ 4
+                #offset[i, j, 7] = q_choice(list01234) # quantum randomize pieces associated here 0/ 1/ 2/ 3/ 4
     whites_turn = True
     while run:
         clock.tick(fps)
