@@ -9,7 +9,9 @@ IBMQ.save_account('6b5dce45561a72edd27ccd67f0a724eb1466ef5b1af9b927afe5dd2314d23
 IBMQ.load_account()
 provider = IBMQ.get_provider(hub='ibm-q')
 
- 
+pygame.font.init()
+qchess_font = pygame.font.SysFont('timesnewroman', 60)
+
 arr = [[0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1]]
 
 width, height = 1200, 900
@@ -19,7 +21,7 @@ pygame.display.set_caption("Quantum Chess v1.0")
 background_colour = (0, 51, 102)
 light_square_colour = (201,223,254)
 dark_square_colour = (107,151,185)
-
+font_colour = (255, 255, 255)
 fps = 60
 
 background = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'background.jpg')), (1200, 900))
@@ -59,6 +61,8 @@ brp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'brp.png')
 bbn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bbn.png')), (100, 100))
 bbp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bbp.png')), (100, 100))
 bnp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bnp.png')), (100, 100))
+
+rep = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'greyreplay.png')), (100, 100))
 
 offset = np.empty(shape = (8, 4, 9)) 
 # ij0 = x, ij1 = y, 
@@ -764,6 +768,7 @@ def main():
     pick_i = 0
     pick_j = 0
     unmated = True
+    replay = False
     list01x32 = [[0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1]]
     for i in range(8):
         for j in range(4):
@@ -784,11 +789,11 @@ def main():
                 else:
                     offset[i, j, 6] = 5
             if i == 4 and (j == 0 or j == 3):
-                offset[i, j, 7] = 5
+               offset[i, j, 7] = 5 # keeping the king classical
             else:
                 list01234 = [0, 1, 2, 3, 4]
-                offset[i, j, 7] = (random.choice(list01234)) # classical randomize pieces associated here 0/ 1/ 2/ 3/ 4
-                #offset[i, j, 7] = q_choice(list01234)
+                #offset[i, j, 7] = (random.choice(list01234)) # classical randomize pieces associated here 0/ 1/ 2/ 3/ 4
+                offset[i, j, 7] = q_choice(list01234) # quantum randomize pieces associated here 0/ 1/ 2/ 3/ 4
     whites_turn = True
     while run:
         clock.tick(fps)
@@ -808,7 +813,11 @@ def main():
                             pick_j = (j if j <= 1 else j + 4) + offset[i, j, 1] / 100
                             # pick i and j are picked piece current coords in 8x8
                             click_x = mouse_x
-                            click_y = mouse_y
+                            click_y = mouse_y                            
+                if (mouse_x > 975 ) and (mouse_x < 1075 ) and (mouse_y > 250 ) and (mouse_y < 350):
+                    replay = True
+                else:
+                    replay = True
             elif event.type == MOUSEBUTTONUP:
                 for i in range(8):
                     for j in range(8):
@@ -829,13 +838,13 @@ def main():
                                 whites_turn = False
                             else:
                                 whites_turn = True
-                            #chosen32 = [0 for m in range(32)]
-                            #chosen32 = choosepair(list01x32, 32, chosen32)
+                            chosen32 = [0 for m in range(32)]
+                            chosen32 = choosepair(list01x32, 32, chosen32)
                             for a in range(8):
                                 for b in range(4):
                                     list01 = [0, 1]
-                                    offset[a, b, 8] = (random.choice(list01)) # classical randomize between 0 and 1
-                                    #offset[a, b, 8] = chosen32[int(4 * a + b)] # quantum randomize between 0 and 1
+                                    #offset[a, b, 8] = (random.choice(list01)) # classical randomize between 0 and 1
+                                    offset[a, b, 8] = chosen32[int(4 * a + b)] # quantum randomize between 0 and 1
                             offset[drag_i, drag_j, 0] = offset[drag_i, drag_j, 0] + (i - pick_i) * 100
                             offset[drag_i, drag_j, 1] = offset[drag_i, drag_j, 1] + (j - pick_j) * 100
                             if drag_i == 4 and (drag_j == 0 or drag_j == 3):
@@ -854,6 +863,10 @@ def main():
                                     offset[7, drag_j, 0] = offset[7, drag_j, 0] - 200
                         elif drag and (mouse_x > 50 + i * 100) and (mouse_x < 50 + (i + 1) * 100) and (mouse_y > 50 + j * 100) and (mouse_y < 50 + (j + 1) * 100):
                             drag = False
+                if (mouse_x > 975 ) and (mouse_x < 1075 ) and (mouse_y > 250 ) and (mouse_y < 350) and replay:
+                    main()
+                else:
+                    replay == False
         #window.fill(background_colour)
         window.blit(background, (0, 0))
         l = pygame.Surface((800,800))
@@ -880,6 +893,11 @@ def main():
                 if offset[i, j, 2] == 1 and drag_i == i and drag_j == j:
                     #piece = (br if (i == 0 or i == 7) else (bn if (i == 1 or i == 6) else (bb if (i == 2 or i == 5) else (bq if i == 3 else bk)))) if (j == 0) else (bp if j == 1 else (wp if j == 2 else (wr if (i == 0 or i == 7) else (wn if (i == 1 or i == 6) else (wb if (i == 2 or i == 5) else (wq if i == 3 else wk))))))
                     window.blit(piece_dragging(drag_i, drag_j), (50 + i * 100 + offset[i, j, 0] + ((mouse_x - click_x) if (drag and drag_i == i and drag_j == j) else (0)), 50 + (j + (4 if j > 1 else 0)) * 100 + offset[i, j, 1] + ((mouse_y - click_y) if (drag and drag_i == i and drag_j == j) else (0))))
+        quantum = qchess_font.render("QUANTUM", 1, font_colour)
+        chess = qchess_font.render("CHESS", 1, font_colour)
+        window.blit(quantum, (1025 - (quantum.get_width() / 2), 70))
+        window.blit(chess, (1025 - (chess.get_width() / 2), 80 + quantum.get_height()))
+        window.blit(rep, (975, 250))
         pygame.display.update()
     
     pygame.quit()
