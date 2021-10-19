@@ -1,6 +1,7 @@
 import pygame
 import os
 import numpy as np
+import random
 from pygame.constants import BUTTON_RIGHT, MOUSEBUTTONDOWN, MOUSEBUTTONUP
 
 width, height = 1200, 900
@@ -21,6 +22,18 @@ wr = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wr.png')),
 wb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wb.png')), (100, 100))
 wn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wn.png')), (100, 100))
 wp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wp.png')), (100, 100))
+
+wqr = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wqr.png')), (100, 100))
+wqb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wqb.png')), (100, 100))
+wqn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wqn.png')), (100, 100))
+wqp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wqp.png')), (100, 100))
+wrb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wrb.png')), (100, 100))
+wrn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wrn.png')), (100, 100))
+wrp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wrp.png')), (100, 100))
+wbn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wbn.png')), (100, 100))
+wbp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wbp.png')), (100, 100))
+wnp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wnp.png')), (100, 100))
+
 bk = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bk.png')), (100, 100))
 bq = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bq.png')), (100, 100))
 br = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'br.png')), (100, 100))
@@ -28,48 +41,152 @@ bb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bb.png')),
 bn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bn.png')), (100, 100))
 bp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bp.png')), (100, 100))
 
+bqr = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wqr.png')), (100, 100))
+bqb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wqb.png')), (100, 100))
+bqn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wqn.png')), (100, 100))
+bqp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wqp.png')), (100, 100))
+brb = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wrb.png')), (100, 100))
+brn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wrn.png')), (100, 100))
+brp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wrp.png')), (100, 100))
+bbn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wbn.png')), (100, 100))
+bbp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wbp.png')), (100, 100))
+bnp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wnp.png')), (100, 100))
+
 offset = np.empty(shape = (8, 4, 9)) 
 # ij0 = x, ij1 = y, 
 # ij2 = 0/1 where 0 is captured, 
 # ij3 = 0/1/2/3/4 -> not promoted, R/ N/ B/ Q
 # ij4 = 0/1 -> cant castle, castle short 
 # ij5 = 0/1 -> cant castle, castle long, 
-# ij6 = 0, 1, 2, 3, 4, 5, 6 -> option 1 R/ N/ B/ Q/ P/ K/ ?,
-# ij7 = 0, 1, 2, 3, 4, 5, 6 -> option 2 R/ N/ B/ Q/ P/ K/ ?, 
+# ij6 = 0, 1, 2, 3, 4, 5, 6 -> option 1 R/ N/ B/ Q/ P/ K
+# ij7 = 0, 1, 2, 3, 4, 5, 6 -> option 2 R/ N/ B/ Q/ P/ K 
 # ij8 = 0, 1 -> current state choice 1/ 2
 
-
+def piece_still(drag_i, drag_j):
+    if drag_j > 1:
+        if offset[drag_i, drag_j, 6] == 0:
+            if offset[drag_i, drag_j, 7] == 0:
+                return wr
+            elif offset[drag_i, drag_j, 7] == 1:
+                return wrn
+            elif offset[drag_i, drag_j, 7] == 2:
+                return wrb
+            elif offset[drag_i, drag_j, 7] == 3:
+                return wqr
+            elif offset[drag_i, drag_j, 7] == 4:
+                return wrp
+        elif offset[drag_i, drag_j, 6] == 1:
+            if offset[drag_i, drag_j, 7] == 0:
+                return wrn
+            elif offset[drag_i, drag_j, 7] == 1:
+                return wn
+            elif offset[drag_i, drag_j, 7] == 2:
+                return wbn
+            elif offset[drag_i, drag_j, 7] == 3:
+                return wqn
+            elif offset[drag_i, drag_j, 7] == 4:
+                return wnp
+        elif offset[drag_i, drag_j, 6] == 2:
+            if offset[drag_i, drag_j, 7] == 0:
+                return wrb
+            elif offset[drag_i, drag_j, 7] == 1:
+                return wbn
+            elif offset[drag_i, drag_j, 7] == 2:
+                return wb
+            elif offset[drag_i, drag_j, 7] == 3:
+                return wqb
+            elif offset[drag_i, drag_j, 7] == 4:
+                return wbp
+        elif offset[drag_i, drag_j, 6] == 3:
+            if offset[drag_i, drag_j, 7] == 0:
+                return wqr
+            elif offset[drag_i, drag_j, 7] == 1:
+                return wqn
+            elif offset[drag_i, drag_j, 7] == 2:
+                return wqb
+            elif offset[drag_i, drag_j, 7] == 3:
+                return wq
+            elif offset[drag_i, drag_j, 7] == 4:
+                return wqp
+        elif offset[drag_i, drag_j, 6] == 4:
+            if offset[drag_i, drag_j, 7] == 0:
+                return wrp
+            elif offset[drag_i, drag_j, 7] == 1:
+                return wnp
+            elif offset[drag_i, drag_j, 7] == 2:
+                return wbp
+            elif offset[drag_i, drag_j, 7] == 3:
+                return wqp
+            elif offset[drag_i, drag_j, 7] == 4:
+                return wp
+        else:
+            return wk            
+    else:
+        if offset[drag_i, drag_j, 6] == 0:
+            if offset[drag_i, drag_j, 7] == 0:
+                return br
+            elif offset[drag_i, drag_j, 7] == 1:
+                return brn
+            elif offset[drag_i, drag_j, 7] == 2:
+                return brb
+            elif offset[drag_i, drag_j, 7] == 3:
+                return bqr
+            elif offset[drag_i, drag_j, 7] == 4:
+                return brp
+        elif offset[drag_i, drag_j, 6] == 1:
+            if offset[drag_i, drag_j, 7] == 0:
+                return brn
+            elif offset[drag_i, drag_j, 7] == 1:
+                return bn
+            elif offset[drag_i, drag_j, 7] == 2:
+                return bbn
+            elif offset[drag_i, drag_j, 7] == 3:
+                return bqn
+            elif offset[drag_i, drag_j, 7] == 4:
+                return bnp
+        elif offset[drag_i, drag_j, 6] == 2:
+            if offset[drag_i, drag_j, 7] == 0:
+                return brb
+            elif offset[drag_i, drag_j, 7] == 1:
+                return bbn
+            elif offset[drag_i, drag_j, 7] == 2:
+                return bb
+            elif offset[drag_i, drag_j, 7] == 3:
+                return bqb
+            elif offset[drag_i, drag_j, 7] == 4:
+                return bbp
+        elif offset[drag_i, drag_j, 6] == 3:
+            if offset[drag_i, drag_j, 7] == 0:
+                return bqr
+            elif offset[drag_i, drag_j, 7] == 1:
+                return bqn
+            elif offset[drag_i, drag_j, 7] == 2:
+                return bqb
+            elif offset[drag_i, drag_j, 7] == 3:
+                return bq
+            elif offset[drag_i, drag_j, 7] == 4:
+                return bqp
+        elif offset[drag_i, drag_j, 6] == 4:
+            if offset[drag_i, drag_j, 7] == 0:
+                return brp
+            elif offset[drag_i, drag_j, 7] == 1:
+                return bnp
+            elif offset[drag_i, drag_j, 7] == 2:
+                return bbp
+            elif offset[drag_i, drag_j, 7] == 3:
+                return bqp
+            elif offset[drag_i, drag_j, 7] == 4:
+                return bp
+        else:
+            return bk            
+def piece_dragging(drag_i, drag_j):
+    if drag_j > 1:
+        return (wr if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 0 else (wn if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 1 else (wb if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 2 else (wq if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 3 else (wp if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 4 else (wk))))))
+    else:
+        return (br if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 0 else (bn if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 1 else (bb if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 2 else (bq if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 3 else (bp if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 4 else (bk))))))
 def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
-    if drag_j == 1:
-        if pick_i == i: #forward
-            for a in range(8):
-                for b in range(4):
-                    if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
-                        return False
-        elif abs(pick_i - i) == 1: #diagonal
-            for a in range(8):
-                for b in range(4):
-                    if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
-                        return (False if b <= 1 else True)
-            return False
-        else:
-            return False
-    elif drag_j == 2:
-        if pick_i == i: #forward
-            for a in range(8):
-                for b in range(4):
-                    if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
-                        return False
-        elif abs(pick_i - i) == 1: #diagonal
-            for a in range(8):
-                for b in range(4):
-                    if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
-                        return (False if b > 1 else True)
-            return False
-        else:
-            return False
-    elif drag_j == 3: # white pieces
-        if drag_i == 0 or drag_i == 7: # rooks
+    if drag_j >= 2: # white pieces
+        if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 0: # rooks
             if pick_i == i: # vertical
                 if pick_j < j: # top to bottom
                     for a in range(8):
@@ -118,36 +235,36 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                                 return False
                     #if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
                     #    return False
-        elif drag_i == 1 or drag_i == 6: # knights
+        elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 1: # knights
             for a in range(8):
                 for b in range(4):
                     if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
                         return (False if b > 1 else True)
-        elif drag_i == 2 or drag_i == 5: # bishops
+        elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 2: # bishops
             #print(i, j, pick_i, pick_j)
-            if pick_i < i and pick_j < j: # NW
+            if pick_i > i and pick_j > j: # NW
                 for a in range(8):
                     for b in range(4):
                         #for k in (pick_j + 1, j): #no piece in between
-                        k = pick_i + 1
-                        l = pick_j + 1
-                        while l < j:
+                        k = pick_i - 1
+                        l = pick_j - 1
+                        while l > j:
                             if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
                                 return False
-                            k += 1
-                            l += 1
+                            k -= 1
+                            l -= 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
                             return False
             elif pick_i > i and pick_j < j: # SW
                 for a in range(8):
                     for b in range(4):
                         #for k in (j + 1, pick_j): #no piece in between
-                        k = pick_i + 1
-                        l = j + 1
-                        while l < pick_j:
+                        k = pick_i - 1
+                        l = pick_j + 1
+                        while l < j:
                             if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
                                 return False
-                            k += 1
+                            k -= 1
                             l += 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
                             return False
@@ -155,7 +272,20 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                 for a in range(8):
                     for b in range(4):
                         #for k in (pick_i + 1, i): #no piece in between
-                        k = i + 1
+                        k = pick_i + 1
+                        l = pick_j - 1
+                        while l > j:
+                            if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
+                                return False
+                            k += 1
+                            l -= 1
+                        if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
+                            return False
+            else: # SE
+                for a in range(8):
+                    for b in range(4):
+                        #for k in (i + 1, pick_i): #no piece in between
+                        k = pick_i + 1
                         l = pick_j + 1
                         while l < j:
                             if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
@@ -164,20 +294,7 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                             l += 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
                             return False
-            else: # SE
-                for a in range(8):
-                    for b in range(4):
-                        #for k in (i + 1, pick_i): #no piece in between
-                        k = i + 1
-                        l = j + 1
-                        while l < pick_j:
-                            if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
-                                return False
-                            k += 1
-                            l += 1
-                        if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
-                            return False
-        elif drag_i == 3: #queen
+        elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 3: #queen
             if pick_i == i: # vertical
                 if pick_j < j: # top to bottom
                     for a in range(8):
@@ -224,65 +341,79 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                                 k += 1
                             if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
                                 return False
-            elif pick_i < i and pick_j < j: # NW
+            elif pick_i > i and pick_j > j: # NW
                 for a in range(8):
                     for b in range(4):
                         #for k in (pick_j + 1, j): #no piece in between
-                        k = pick_i + 1
-                        l = pick_j + 1
-                        while l < j:
+                        k = pick_i - 1
+                        l = pick_j - 1
+                        while l > j:
                             if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
                                 return False
-                            k += 1
-                            l += 1
+                            k -= 1
+                            l -= 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
                             return False
-            elif pick_i < i and pick_j > j: # SW
+            elif pick_i > i and pick_j < j: # SW
                 for a in range(8):
                     for b in range(4):
                         #for k in (j + 1, pick_j): #no piece in between
-                        k = pick_i + 1
-                        l = j + 1
-                        while l < pick_j:
-                            if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
-                                return False
-                            k += 1
-                            l += 1
-                        if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
-                            return False
-            elif pick_i > i and pick_j < j: # NE
-                for a in range(8):
-                    for b in range(4):
-                        #for k in (pick_i + 1, i): #no piece in between
-                        k = i + 1
+                        k = pick_i - 1
                         l = pick_j + 1
                         while l < j:
                             if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
                                 return False
-                            k += 1
+                            k -= 1
                             l += 1
+                        if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
+                            return False
+            elif pick_i < i and pick_j > j: # NE
+                for a in range(8):
+                    for b in range(4):
+                        #for k in (pick_i + 1, i): #no piece in between
+                        k = pick_i + 1
+                        l = pick_j - 1
+                        while l > j:
+                            if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
+                                return False
+                            k += 1
+                            l -= 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
                             return False
             else: # SE
                 for a in range(8):
                     for b in range(4):
                         #for k in (i + 1, pick_i): #no piece in between
-                        k = i + 1
-                        l = j + 1
-                        while l < pick_j:
+                        k = pick_i + 1
+                        l = pick_j + 1
+                        while l < j:
                             if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
                                 return False
                             k += 1
                             l += 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1: #if white piece at end
                             return False
-        else:
+        elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 4: # pawn
+            if pick_i == i: #forward
+                for a in range(8):
+                    for b in range(4):
+                        if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
+                            return False
+            elif abs(pick_i - i) == 1: #diagonal
+                for a in range(8):
+                    for b in range(4):
+                        if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
+                            return (False if b > 1 else True)
+                return False
+            else:
+                return False
+        else: #king
             for a in range(8):
                 for b in range(4):
                     if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b > 1 and offset[a, b, 2] == 1:
                         return False
-    elif drag_j == 0: # black pieces
-        if drag_i == 0 or drag_i == 7: # rooks
+    elif drag_j <= 1: # black pieces
+        if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 0: # rooks
             if pick_i == i: # vertical
                 if pick_j < j: # top to bottom
                     for a in range(8):
@@ -331,35 +462,35 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                                 return False
                     #if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
                     #    return False
-        elif drag_i == 1 or drag_i == 6: # knights
+        elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 1: # knights
             for a in range(8):
                 for b in range(4):
                     if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
                         return (False if b <= 1 else True)
-        elif drag_i == 2 or drag_i == 5: # bishops
-            if pick_i < i and pick_j < j: # NW
+        elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 2: # bishops
+            if pick_i > i and pick_j > j: # NW
                 for a in range(8):
                     for b in range(4):
                         #for k in (pick_j + 1, j): #no piece in between
-                        k = pick_i + 1
-                        l = pick_j + 1
-                        while l < j:
+                        k = pick_i - 1
+                        l = pick_j - 1
+                        while l > j:
                             if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
                                 return False
-                            k += 1
-                            l += 1
+                            k -= 1
+                            l -= 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
                             return False
             elif pick_i > i and pick_j < j: # SW
                 for a in range(8):
                     for b in range(4):
                         #for k in (j + 1, pick_j): #no piece in between
-                        k = pick_i + 1
-                        l = j + 1
-                        while l < pick_j:
+                        k = pick_i - 1
+                        l = pick_j + 1
+                        while l < j:
                             if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
                                 return False
-                            k += 1
+                            k -= 1
                             l += 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
                             return False
@@ -367,7 +498,20 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                 for a in range(8):
                     for b in range(4):
                         #for k in (pick_i + 1, i): #no piece in between
-                        k = i + 1
+                        k = pick_i + 1
+                        l = pick_j - 1
+                        while l > j:
+                            if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
+                                return False
+                            k += 1
+                            l -= 1
+                        if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
+                            return False
+            else: # SE
+                for a in range(8):
+                    for b in range(4):
+                        #for k in (i + 1, pick_i): #no piece in between
+                        k = pick_i + 1
                         l = pick_j + 1
                         while l < j:
                             if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
@@ -376,20 +520,7 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                             l += 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
                             return False
-            else: # SE
-                for a in range(8):
-                    for b in range(4):
-                        #for k in (i + 1, pick_i): #no piece in between
-                        k = i + 1
-                        l = j + 1
-                        while l < pick_j:
-                            if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
-                                return False
-                            k += 1
-                            l += 1
-                        if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
-                            return False
-        elif drag_i == 3: #queen
+        elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 3: #queen
             if pick_i == i: # vertical
                 if pick_j < j: # top to bottom
                     for a in range(8):
@@ -436,59 +567,73 @@ def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                                 k += 1
                             if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
                                 return False
-            elif pick_i < i and pick_j < j: # NW
+            elif pick_i > i and pick_j > j: # NW
                 for a in range(8):
                     for b in range(4):
                         #for k in (pick_j + 1, j): #no piece in between
-                        k = pick_i + 1
-                        l = pick_j + 1
-                        while l < j:
+                        k = pick_i - 1
+                        l = pick_j - 1
+                        while l > j:
                             if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
                                 return False
-                            k += 1
-                            l += 1
+                            k -= 1
+                            l -= 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
                             return False
-            elif pick_i < i and pick_j > j: # SW
+            elif pick_i > i and pick_j < j: # SW
                 for a in range(8):
                     for b in range(4):
                         #for k in (j + 1, pick_j): #no piece in between
-                        k = pick_i + 1
-                        l = j + 1
-                        while l < pick_j:
-                            if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
-                                return False
-                            k += 1
-                            l += 1
-                        if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
-                            return False
-            elif pick_i > i and pick_j < j: # NE
-                for a in range(8):
-                    for b in range(4):
-                        #for k in (pick_i + 1, i): #no piece in between
-                        k = i + 1
+                        k = pick_i - 1
                         l = pick_j + 1
                         while l < j:
                             if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
                                 return False
-                            k += 1
+                            k -= 1
                             l += 1
+                        if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
+                            return False
+            elif pick_i < i and pick_j > j: # NE
+                for a in range(8):
+                    for b in range(4):
+                        #for k in (pick_i + 1, i): #no piece in between
+                        k = pick_i + 1
+                        l = pick_j - 1
+                        while l > j:
+                            if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
+                                return False
+                            k += 1
+                            l -= 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
                             return False
             else: # SE
                 for a in range(8):
                     for b in range(4):
                         #for k in (i + 1, pick_i): #no piece in between
-                        k = i + 1
-                        l = j + 1
-                        while l < pick_j:
+                        k = pick_i + 1
+                        l = pick_j + 1
+                        while l < j:
                             if a + offset[a, b, 0] / 100 == k and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == l and offset[a, b, 2] == 1: #if piece
                                 return False
                             k += 1
                             l += 1
                         if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1: #if black piece at end
                             return False
-        else:
+        elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 4: #pawn
+            if pick_i == i: #forward
+                for a in range(8):
+                    for b in range(4):
+                        if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
+                            return False
+            elif abs(pick_i - i) == 1: #diagonal
+                for a in range(8):
+                    for b in range(4):
+                        if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and offset[a, b, 2] == 1: #if piece
+                            return (False if b <= 1 else True)
+                return False
+            else:
+                return False
+        else: #king
             for a in range(8):
                 for b in range(4):
                     if a + offset[a, b, 0] / 100 == i and b + (4 if b > 1 else 0) + offset[a, b, 1] / 100 == j and b <= 1 and offset[a, b, 2] == 1:
@@ -509,26 +654,26 @@ def legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j):
         if pick_i == i and pick_j == j:
             return False
         if whites_turn:
-            if offset[drag_i, drag_j, 6] == 4:
+            if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 4:
                 if (pick_j == j + 1) and (pick_i == i or pick_i == i + 1 or pick_i == i - 1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
                 elif (pick_j == 6) and (j == 4) and (pick_i == i) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j+1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
-            elif drag_j == 3:
-                if offset[drag_i, drag_j, 6] == 0:
+            elif drag_j > 1:
+                if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 0:
                     if (pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif offset[drag_i, drag_j, 6] == 1:
+                elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 1:
                     if ((abs(pick_i - i) == 2 and abs(pick_j - j) == 1) or (abs(pick_i - i) == 1 and abs(pick_j - j) == 2)) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif offset[drag_i, drag_j, 6] == 2:
+                elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 2:
                     #print(i, j, check_empty(drag_i, drag_j, pick_i, pick_j, i, j))
                     if abs(pick_i - i) == abs(pick_j - j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif offset[drag_i, drag_j, 6] == 3:
+                elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 3:
                     if (abs(pick_i - i) == abs(pick_j - j) or pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif offset[drag_i, drag_j, 6] == 5:
+                elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 5:
                     if (abs(pick_i - i) <= 1 and abs(pick_j - j) <= 1) and (abs(pick_i - i) == abs(pick_j - j) or pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
                     elif offset[drag_i, drag_j, 4] == 1 and (pick_j == j) and i == 6 and can_castle(drag_i, drag_j, pick_i, pick_j, i, j) and can_castle(drag_i, drag_j, pick_i, pick_j, i-1, j):
@@ -537,25 +682,25 @@ def legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
             return False
         else:
-            if offset[drag_i, drag_j, 6] == 4:
+            if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 4:
                 if (pick_j == j - 1) and (pick_i == i or pick_i == i + 1 or pick_i == i - 1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
                 elif (pick_j == 1) and (j == 3) and (pick_i == i) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j-1) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                     return True
-            elif drag_j == 0:
-                if offset[drag_i, drag_j, 6] == 0:
+            elif drag_j <= 1:
+                if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 0:
                     if (pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif offset[drag_i, drag_j, 6] == 1:
+                elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 1:
                     if ((abs(pick_i - i) == 2 and abs(pick_j - j) == 1) or (abs(pick_i - i) == 1 and abs(pick_j - j) == 2)) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif offset[drag_i, drag_j, 6] == 2:
+                elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 2:
                     if abs(pick_i - i) == abs(pick_j - j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif offset[drag_i, drag_j, 6] == 3:
+                elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 3:
                     if (abs(pick_i - i) == abs(pick_j - j) or pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
-                elif offset[drag_i, drag_j, 6] == 5:
+                elif offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 5:
                     if (abs(pick_i - i) <= 1 and abs(pick_j - j) <= 1) and (abs(pick_i - i) == abs(pick_j - j) or pick_i == i or pick_j == j) and check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
                         return True
                     elif offset[drag_i, drag_j, 4] == 1 and (pick_j == j) and i == 6 and can_castle(drag_i, drag_j, pick_i, pick_j, i, j) and can_castle(drag_i, drag_j, pick_i, pick_j, i-1, j):
@@ -567,15 +712,17 @@ def main():
     clock = pygame.time.Clock()
     run = True
     drag =  False
-    drag_i = 0
-    drag_j = 0
+    drag_i = -1
+    drag_j = -1
     click_x = 0
     click_y = 0
     pick_i = 0
     pick_j = 0
     for i in range(8):
         for j in range(4):
-            offset[i, j, 0], offset[i, j, 1], offset[i, j, 2], offset[i, j, 3],  offset[i, j, 4], offset[i, j, 5], offset[i, j, 7], = 0, 0, 1, 0, (1 if i == 4 else 0), (1 if i == 4 else 0), 6
+            list01 = [0, 1]
+            offset[i, j, 0], offset[i, j, 1], offset[i, j, 2], offset[i, j, 3],  offset[i, j, 4], offset[i, j, 5] = 0, 0, 1, 0, (1 if i == 4 else 0), (1 if i == 4 else 0)
+            offset[i, j, 8] = (random.choice(list01)) # classical randomize between 0 and 1
             if j == 1 or j == 2:
                 offset[i, j, 6] = 4
             else:
@@ -589,6 +736,11 @@ def main():
                     offset[i, j, 6] = 3
                 else:
                     offset[i, j, 6] = 5
+            if i == 4 and (j == 0 or j == 3):
+                offset[i, j, 7] = 5
+            else:
+                list01234 = [0, 1, 2, 3, 4]
+                offset[i, j, 7] = (random.choice(list01234)) # classical randomize pieces associated here 0/ 1/ 2/ 3/ 4
     whites_turn = True
     while run:
         clock.tick(fps)
@@ -664,13 +816,13 @@ def main():
         for i in range(8):
             for j in range(4):
                 if offset[i, j, 2] == 1 and (drag_i != i or drag_j != j):
-                            piece = (br if (i == 0 or i == 7) else (bn if (i == 1 or i == 6) else (bb if (i == 2 or i == 5) else (bq if i == 3 else bk)))) if (j == 0) else (bp if j == 1 else (wp if j == 2 else (wr if (i == 0 or i == 7) else (wn if (i == 1 or i == 6) else (wb if (i == 2 or i == 5) else (wq if i == 3 else wk))))))
-                            window.blit(piece, (50 + i * 100 + offset[i, j, 0] + ((mouse_x - click_x) if (drag and drag_i == i and drag_j == j) else (0)), 50 + (j + (4 if j > 1 else 0)) * 100 + offset[i, j, 1] + ((mouse_y - click_y) if (drag and drag_i == i and drag_j == j) else (0))))
+                    #piece = (br if (i == 0 or i == 7) else (bn if (i == 1 or i == 6) else (bb if (i == 2 or i == 5) else (bq if i == 3 else bk)))) if (j == 0) else (bp if j == 1 else (wp if j == 2 else (wr if (i == 0 or i == 7) else (wn if (i == 1 or i == 6) else (wb if (i == 2 or i == 5) else (wq if i == 3 else wk))))))
+                    window.blit(piece_still(i, j), (50 + i * 100 + offset[i, j, 0] + ((mouse_x - click_x) if (drag and drag_i == i and drag_j == j) else (0)), 50 + (j + (4 if j > 1 else 0)) * 100 + offset[i, j, 1] + ((mouse_y - click_y) if (drag and drag_i == i and drag_j == j) else (0))))
         for i in range(8):
             for j in range(4):
                 if offset[i, j, 2] == 1 and drag_i == i and drag_j == j:
-                            piece = (br if (i == 0 or i == 7) else (bn if (i == 1 or i == 6) else (bb if (i == 2 or i == 5) else (bq if i == 3 else bk)))) if (j == 0) else (bp if j == 1 else (wp if j == 2 else (wr if (i == 0 or i == 7) else (wn if (i == 1 or i == 6) else (wb if (i == 2 or i == 5) else (wq if i == 3 else wk))))))
-                            window.blit(piece, (50 + i * 100 + offset[i, j, 0] + ((mouse_x - click_x) if (drag and drag_i == i and drag_j == j) else (0)), 50 + (j + (4 if j > 1 else 0)) * 100 + offset[i, j, 1] + ((mouse_y - click_y) if (drag and drag_i == i and drag_j == j) else (0))))
+                    #piece = (br if (i == 0 or i == 7) else (bn if (i == 1 or i == 6) else (bb if (i == 2 or i == 5) else (bq if i == 3 else bk)))) if (j == 0) else (bp if j == 1 else (wp if j == 2 else (wr if (i == 0 or i == 7) else (wn if (i == 1 or i == 6) else (wb if (i == 2 or i == 5) else (wq if i == 3 else wk))))))
+                    window.blit(piece_dragging(drag_i, drag_j), (50 + i * 100 + offset[i, j, 0] + ((mouse_x - click_x) if (drag and drag_i == i and drag_j == j) else (0)), 50 + (j + (4 if j > 1 else 0)) * 100 + offset[i, j, 1] + ((mouse_y - click_y) if (drag and drag_i == i and drag_j == j) else (0))))
         pygame.display.update()
     
     pygame.quit()
