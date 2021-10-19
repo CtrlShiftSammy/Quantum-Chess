@@ -763,6 +763,7 @@ def main():
     click_y = 0
     pick_i = 0
     pick_j = 0
+    unmated = True
     list01x32 = [[0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1]]
     for i in range(8):
         for j in range(4):
@@ -811,7 +812,7 @@ def main():
             elif event.type == MOUSEBUTTONUP:
                 for i in range(8):
                     for j in range(8):
-                        if drag and legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j) and (mouse_x > 50 + i * 100) and (mouse_x < 50 + (i + 1) * 100) and (mouse_y > 50 + j * 100) and (mouse_y < 50 + (j + 1) * 100):
+                        if drag and unmated and legal(whites_turn, drag_i, drag_j, pick_i, pick_j, i, j) and (mouse_x > 50 + i * 100) and (mouse_x < 50 + (i + 1) * 100) and (mouse_y > 50 + j * 100) and (mouse_y < 50 + (j + 1) * 100):
                             for k in range(8):
                                 for l in range(4):
                                     if k * 100 + offset[k, l, 0] == i * 100 and (l + (4 if l > 1 else 0)) * 100 + offset[k, l, 1] == j * 100:
@@ -821,18 +822,20 @@ def main():
                                                 offset[4, (0 if drag_j <= 1 else 3), 5] == 0
                                             if j == 7 and (k == 0 or k == 7):
                                                 offset[4, (0 if drag_j <= 1 else 3), 4] == 0
-                            drag = False
+                                            if k == 4 and (l == 0 or l == 3):
+                                                unmated = False
+                                drag = False
                             if whites_turn:
                                 whites_turn = False
                             else:
                                 whites_turn = True
-                            chosen32 = [0 for m in range(32)]
-                            chosen32 = choosepair(list01x32, 32, chosen32)
+                            #chosen32 = [0 for m in range(32)]
+                            #chosen32 = choosepair(list01x32, 32, chosen32)
                             for a in range(8):
                                 for b in range(4):
                                     list01 = [0, 1]
-                                    #offset[a, b, 8] = (random.choice(list01)) # classical randomize between 0 and 1
-                                    offset[a, b, 8] = chosen32[int(4 * a + b)] # quantum randomize between 0 and 1
+                                    offset[a, b, 8] = (random.choice(list01)) # classical randomize between 0 and 1
+                                    #offset[a, b, 8] = chosen32[int(4 * a + b)] # quantum randomize between 0 and 1
                             offset[drag_i, drag_j, 0] = offset[drag_i, drag_j, 0] + (i - pick_i) * 100
                             offset[drag_i, drag_j, 1] = offset[drag_i, drag_j, 1] + (j - pick_j) * 100
                             if drag_i == 4 and (drag_j == 0 or drag_j == 3):
