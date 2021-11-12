@@ -838,13 +838,14 @@ def main():
                                 whites_turn = False
                             else:
                                 whites_turn = True
-                            chosen32 = [0 for m in range(32)]
-                            chosen32 = choosepair(list01x32, 32, chosen32)
-                            for a in range(8):
-                                for b in range(4):
-                                    list01 = [0, 1]
-                                    #offset[a, b, 8] = (random.choice(list01)) # classical randomize between 0 and 1
-                                    offset[a, b, 8] = chosen32[int(4 * a + b)] # quantum randomize between 0 and 1
+                            #chosen32 = [0 for m in range(32)]
+                            #chosen32 = choosepair(list01x32, 32, chosen32)
+                            if whites_turn:
+                                for a in range(8):
+                                    for b in range(4):
+                                        list01 = [0, 1]
+                                        offset[a, b, 8] = (random.choice(list01)) # classical randomize between 0 and 1
+                                        #offset[a, b, 8] = chosen32[int(4 * a + b)] # quantum randomize between 0 and 1
                             offset[drag_i, drag_j, 0] = offset[drag_i, drag_j, 0] + (i - pick_i) * 100
                             offset[drag_i, drag_j, 1] = offset[drag_i, drag_j, 1] + (j - pick_j) * 100
                             if drag_i == 4 and (drag_j == 0 or drag_j == 3):
