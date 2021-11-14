@@ -5,8 +5,8 @@ A fun variant of chess where people can get a more intuitive sense of some aspec
 Pieces randomly change states like a quantum particle making it a game of both wits and luck.
 
 HOW TO RUN:
-1. Install Python and its modules, including Pygame
-2. Install Qiskit
+1. Install Python and its modules, including Pygame.
+2. Install Qiskit.
 3. Open Quantum Chess folder in your terminal.
 4. Execute main.py using the python command.
 

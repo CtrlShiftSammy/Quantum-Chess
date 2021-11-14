@@ -60,7 +60,7 @@ brn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'brn.png')
 brp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'brp.png')), (100, 100))
 bbn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bbn.png')), (100, 100))
 bbp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bbp.png')), (100, 100))
-bnp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bnp.png')), (100, 100))
+bnp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bnp1.png')), (100, 100))
 
 rep = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'replay.png')), (100, 100))
 
