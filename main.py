@@ -129,7 +129,10 @@ def piece_still(drag_i, drag_j):
             if offset[drag_i, drag_j, 7] == 0:
                 return wr
             elif offset[drag_i, drag_j, 7] == 1:
-                return wrn
+                if offset[drag_i, drag_j, 8] == 1:
+                    return wrn
+                else:
+                    return wrn
             elif offset[drag_i, drag_j, 7] == 2:
                 return wrb
             elif offset[drag_i, drag_j, 7] == 3:
