@@ -60,7 +60,7 @@ brn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'brn.png')
 brp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'brp.png')), (100, 100))
 bbn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bbn.png')), (100, 100))
 bbp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bbp.png')), (100, 100))
-bnp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bnp1.png')), (100, 100))
+bnp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bnp.png')), (100, 100))
 
 rep = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'replay.png')), (100, 100))
 
@@ -111,6 +111,18 @@ def q_choice(num5):
         return num5[4]
     else:
         q_choice(num5)
+def q_choice_minus_pawn(a, i, j, num5):
+    if j > 1:
+        j =  3 - j
+    a = a[i + 8 * j:i + 8 * j + 2]
+    if a == '00':
+        return num5[0]
+    elif a == '01':
+        return num5[1]
+    elif a == '10':
+        return num5[2]
+    else:
+        return num5[3]
 def piece_still(drag_i, drag_j):
     if drag_j > 1:
         if offset[drag_i, drag_j, 6] == 0:
@@ -770,6 +782,7 @@ def main():
     unmated = True
     replay = False
     list01x32 = [[0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1]]
+    a = qrandom(32)
     for i in range(8):
         for j in range(4):
             list01 = [0, 1]
@@ -792,8 +805,10 @@ def main():
                offset[i, j, 7] = 5 # keeping the king classical
             else:
                 list01234 = [0, 1, 2, 3, 4]
-                offset[i, j, 7] = (random.choice(list01234)) # classical randomize pieces associated here 0/ 1/ 2/ 3/ 4
+                #print(str(a)[8 * j + i: 8 * j + i + 2])
+                #offset[i, j, 7] = (random.choice(list01234)) # classical randomize pieces associated here 0/ 1/ 2/ 3/ 4
                 #offset[i, j, 7] = q_choice(list01234) # quantum randomize pieces associated here 0/ 1/ 2/ 3/ 4
+                offset[i, j, 7] = q_choice_minus_pawn(str(a), i, j, list01234) # quantum randomize pieces associated here 0/ 1/ 2/ 3
     whites_turn = True
     while run:
         clock.tick(fps)
