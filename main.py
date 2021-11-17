@@ -62,6 +62,88 @@ bbn = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bbn.png')
 bbp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bbp.png')), (100, 100))
 bnp = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bnp.png')), (100, 100))
 
+dwqr1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwqr1.png')), (100, 100))
+dwqr2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwqr2.png')), (100, 100))
+dwqb1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwqb1.png')), (100, 100))
+dwqb2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwqb2.png')), (100, 100))
+dwqn1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwqn1.png')), (100, 100))
+dwqn2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwqn2.png')), (100, 100))
+dwqp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwqp1.png')), (100, 100))
+dwqp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwqp2.png')), (100, 100))
+dwrb1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwrb1.png')), (100, 100))
+dwrb2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwrb2.png')), (100, 100))
+dwrn1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwrn1.png')), (100, 100))
+dwrn2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwrn2.png')), (100, 100))
+dwrp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwrp1.png')), (100, 100))
+dwrp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwrp2.png')), (100, 100))
+dwbn1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwbn1.png')), (100, 100))
+dwbn2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwbn2.png')), (100, 100))
+dwbp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwbp1.png')), (100, 100))
+dwbp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwbp2.png')), (100, 100))
+dwnp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwnp1.png')), (100, 100))
+dwnp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dwnp2.png')), (100, 100))
+dbqr1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbqr1.png')), (100, 100))
+dbqr2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbqr2.png')), (100, 100))
+dbqb1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbqb1.png')), (100, 100))
+dbqb2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbqb2.png')), (100, 100))
+dbqn1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbqn1.png')), (100, 100))
+dbqn2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbqn2.png')), (100, 100))
+dbqp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbqp1.png')), (100, 100))
+dbqp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbqp2.png')), (100, 100))
+dbrb1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbrb1.png')), (100, 100))
+dbrb2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbrb2.png')), (100, 100))
+dbrn1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbrn1.png')), (100, 100))
+dbrn2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbrn2.png')), (100, 100))
+dbrp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbrp1.png')), (100, 100))
+dbrp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbrp2.png')), (100, 100))
+dbbn1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbbn1.png')), (100, 100))
+dbbn2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbbn2.png')), (100, 100))
+dbbp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbbp1.png')), (100, 100))
+dbbp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbbp2.png')), (100, 100))
+dbnp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbnp1.png')), (100, 100))
+dbnp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'dbnp2.png')), (100, 100))
+
+lwqr1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwqr1.png')), (100, 100))
+lwqr2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwqr2.png')), (100, 100))
+lwqb1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwqb1.png')), (100, 100))
+lwqb2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwqb2.png')), (100, 100))
+lwqn1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwqn1.png')), (100, 100))
+lwqn2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwqn2.png')), (100, 100))
+lwqp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwqp1.png')), (100, 100))
+lwqp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwqp2.png')), (100, 100))
+lwrb1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwrb1.png')), (100, 100))
+lwrb2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwrb2.png')), (100, 100))
+lwrn1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwrn1.png')), (100, 100))
+lwrn2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwrn2.png')), (100, 100))
+lwrp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwrp1.png')), (100, 100))
+lwrp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwrp2.png')), (100, 100))
+lwbn1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwbn1.png')), (100, 100))
+lwbn2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwbn2.png')), (100, 100))
+lwbp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwbp1.png')), (100, 100))
+lwbp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwbp2.png')), (100, 100))
+lwnp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwnp1.png')), (100, 100))
+lwnp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lwnp2.png')), (100, 100))
+lbqr1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbqr1.png')), (100, 100))
+lbqr2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbqr2.png')), (100, 100))
+lbqb1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbqb1.png')), (100, 100))
+lbqb2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbqb2.png')), (100, 100))
+lbqn1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbqn1.png')), (100, 100))
+lbqn2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbqn2.png')), (100, 100))
+lbqp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbqp1.png')), (100, 100))
+lbqp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbqp2.png')), (100, 100))
+lbrb1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbrb1.png')), (100, 100))
+lbrb2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbrb2.png')), (100, 100))
+lbrn1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbrn1.png')), (100, 100))
+lbrn2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbrn2.png')), (100, 100))
+lbrp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbrp1.png')), (100, 100))
+lbrp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbrp2.png')), (100, 100))
+lbbn1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbbn1.png')), (100, 100))
+lbbn2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbbn2.png')), (100, 100))
+lbbp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbbp1.png')), (100, 100))
+lbbp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbbp2.png')), (100, 100))
+lbnp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbnp1.png')), (100, 100))
+lbnp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbnp2.png')), (100, 100))
+
 rep = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'replay.png')), (100, 100))
 
 offset = np.empty(shape = (8, 4, 9)) 
@@ -123,131 +205,261 @@ def q_choice_minus_pawn(a, i, j, num5):
         return num5[2]
     else:
         return num5[3]
-def piece_still(drag_i, drag_j):
-    if drag_j > 1:
-        if offset[drag_i, drag_j, 6] == 0:
-            if offset[drag_i, drag_j, 7] == 0:
-                return wr
-            elif offset[drag_i, drag_j, 7] == 1:
-                if offset[drag_i, drag_j, 8] == 1:
+def piece_superposed(whites_turn, drag_i, drag_j):
+    if (whites_turn and drag_j > 1) or (not(whites_turn) and drag_j <= 1):
+        if drag_j > 1:
+            if offset[drag_i, drag_j, 6] == 0:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return wr
+                elif offset[drag_i, drag_j, 7] == 1:
+                    if offset[drag_i, drag_j, 8] == 1:
+                        return lwrn1 if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else dwrn2
+                    else:
+                        return lwrn2 if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else dwrn1
+                elif offset[drag_i, drag_j, 7] == 2:
+                    if offset[drag_i, drag_j, 8] == 1:
+                        return lwrb1 #if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else lwrb2
+                    else:
+                        return lwrb2 #if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else lwrb1
+                elif offset[drag_i, drag_j, 7] == 3:
+                    if offset[drag_i, drag_j, 8] == 1:
+                        return lwqr2 #if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else dwqr1
+                    else:
+                        return lwqr1 #if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else dwqr2
+                elif offset[drag_i, drag_j, 7] == 4:
+                    if offset[drag_i, drag_j, 8] == 1:
+                        return lwrp1 #if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else dwrp2
+                    else:
+                        return lwrp2 #if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else dwrp1
+            elif offset[drag_i, drag_j, 6] == 1:
+                if offset[drag_i, drag_j, 7] == 0:
                     return wrn
-                else:
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return wn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return wbn
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return wqn
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return wnp
+            elif offset[drag_i, drag_j, 6] == 2:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return wrb
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return wbn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return wb
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return wqb
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return wbp
+            elif offset[drag_i, drag_j, 6] == 3:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return wqr
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return wqn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return wqb
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return wq
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return wqp
+            elif offset[drag_i, drag_j, 6] == 4:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return wrp
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return wnp
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return wbp
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return wqp
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return wp
+            else:
+                return wk            
+        else:
+            if offset[drag_i, drag_j, 6] == 0:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return br
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return brn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return brb
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return bqr
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return brp
+            elif offset[drag_i, drag_j, 6] == 1:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return brn
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return bn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return bbn
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return bqn
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return bnp
+            elif offset[drag_i, drag_j, 6] == 2:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return brb
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return bbn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return bb
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return bqb
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return bbp
+            elif offset[drag_i, drag_j, 6] == 3:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return bqr
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return bqn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return bqb
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return bq
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return bqp
+            elif offset[drag_i, drag_j, 6] == 4:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return brp
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return bnp
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return bbp
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return bqp
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return bp
+            else:
+                return bk            
+    else:
+        if drag_j > 1:
+            if offset[drag_i, drag_j, 6] == 0:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return wr
+                elif offset[drag_i, drag_j, 7] == 1:
                     return wrn
-            elif offset[drag_i, drag_j, 7] == 2:
-                return wrb
-            elif offset[drag_i, drag_j, 7] == 3:
-                return wqr
-            elif offset[drag_i, drag_j, 7] == 4:
-                return wrp
-        elif offset[drag_i, drag_j, 6] == 1:
-            if offset[drag_i, drag_j, 7] == 0:
-                return wrn
-            elif offset[drag_i, drag_j, 7] == 1:
-                return wn
-            elif offset[drag_i, drag_j, 7] == 2:
-                return wbn
-            elif offset[drag_i, drag_j, 7] == 3:
-                return wqn
-            elif offset[drag_i, drag_j, 7] == 4:
-                return wnp
-        elif offset[drag_i, drag_j, 6] == 2:
-            if offset[drag_i, drag_j, 7] == 0:
-                return wrb
-            elif offset[drag_i, drag_j, 7] == 1:
-                return wbn
-            elif offset[drag_i, drag_j, 7] == 2:
-                return wb
-            elif offset[drag_i, drag_j, 7] == 3:
-                return wqb
-            elif offset[drag_i, drag_j, 7] == 4:
-                return wbp
-        elif offset[drag_i, drag_j, 6] == 3:
-            if offset[drag_i, drag_j, 7] == 0:
-                return wqr
-            elif offset[drag_i, drag_j, 7] == 1:
-                return wqn
-            elif offset[drag_i, drag_j, 7] == 2:
-                return wqb
-            elif offset[drag_i, drag_j, 7] == 3:
-                return wq
-            elif offset[drag_i, drag_j, 7] == 4:
-                return wqp
-        elif offset[drag_i, drag_j, 6] == 4:
-            if offset[drag_i, drag_j, 7] == 0:
-                return wrp
-            elif offset[drag_i, drag_j, 7] == 1:
-                return wnp
-            elif offset[drag_i, drag_j, 7] == 2:
-                return wbp
-            elif offset[drag_i, drag_j, 7] == 3:
-                return wqp
-            elif offset[drag_i, drag_j, 7] == 4:
-                return wp
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return wrb
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return wqr
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return wrp
+            elif offset[drag_i, drag_j, 6] == 1:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return wrn
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return wn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return wbn
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return wqn
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return wnp
+            elif offset[drag_i, drag_j, 6] == 2:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return wrb
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return wbn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return wb
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return wqb
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return wbp
+            elif offset[drag_i, drag_j, 6] == 3:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return wqr
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return wqn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return wqb
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return wq
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return wqp
+            elif offset[drag_i, drag_j, 6] == 4:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return wrp
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return wnp
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return wbp
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return wqp
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return wp
+            else:
+                return wk            
         else:
-            return wk            
-    else:
-        if offset[drag_i, drag_j, 6] == 0:
-            if offset[drag_i, drag_j, 7] == 0:
-                return br
-            elif offset[drag_i, drag_j, 7] == 1:
-                return brn
-            elif offset[drag_i, drag_j, 7] == 2:
-                return brb
-            elif offset[drag_i, drag_j, 7] == 3:
-                return bqr
-            elif offset[drag_i, drag_j, 7] == 4:
-                return brp
-        elif offset[drag_i, drag_j, 6] == 1:
-            if offset[drag_i, drag_j, 7] == 0:
-                return brn
-            elif offset[drag_i, drag_j, 7] == 1:
-                return bn
-            elif offset[drag_i, drag_j, 7] == 2:
-                return bbn
-            elif offset[drag_i, drag_j, 7] == 3:
-                return bqn
-            elif offset[drag_i, drag_j, 7] == 4:
-                return bnp
-        elif offset[drag_i, drag_j, 6] == 2:
-            if offset[drag_i, drag_j, 7] == 0:
-                return brb
-            elif offset[drag_i, drag_j, 7] == 1:
-                return bbn
-            elif offset[drag_i, drag_j, 7] == 2:
-                return bb
-            elif offset[drag_i, drag_j, 7] == 3:
-                return bqb
-            elif offset[drag_i, drag_j, 7] == 4:
-                return bbp
-        elif offset[drag_i, drag_j, 6] == 3:
-            if offset[drag_i, drag_j, 7] == 0:
-                return bqr
-            elif offset[drag_i, drag_j, 7] == 1:
-                return bqn
-            elif offset[drag_i, drag_j, 7] == 2:
-                return bqb
-            elif offset[drag_i, drag_j, 7] == 3:
-                return bq
-            elif offset[drag_i, drag_j, 7] == 4:
-                return bqp
-        elif offset[drag_i, drag_j, 6] == 4:
-            if offset[drag_i, drag_j, 7] == 0:
-                return brp
-            elif offset[drag_i, drag_j, 7] == 1:
-                return bnp
-            elif offset[drag_i, drag_j, 7] == 2:
-                return bbp
-            elif offset[drag_i, drag_j, 7] == 3:
-                return bqp
-            elif offset[drag_i, drag_j, 7] == 4:
-                return bp
+            if offset[drag_i, drag_j, 6] == 0:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return br
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return brn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return brb
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return bqr
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return brp
+            elif offset[drag_i, drag_j, 6] == 1:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return brn
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return bn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return bbn
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return bqn
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return bnp
+            elif offset[drag_i, drag_j, 6] == 2:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return brb
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return bbn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return bb
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return bqb
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return bbp
+            elif offset[drag_i, drag_j, 6] == 3:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return bqr
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return bqn
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return bqb
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return bq
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return bqp
+            elif offset[drag_i, drag_j, 6] == 4:
+                if offset[drag_i, drag_j, 7] == 0:
+                    return brp
+                elif offset[drag_i, drag_j, 7] == 1:
+                    return bnp
+                elif offset[drag_i, drag_j, 7] == 2:
+                    return bbp
+                elif offset[drag_i, drag_j, 7] == 3:
+                    return bqp
+                elif offset[drag_i, drag_j, 7] == 4:
+                    return bp
+            else:
+                return bk            
+def piece_dragging(whites_turn, drag_i, drag_j):
+    if (whites_turn and drag_j > 1) or (not(whites_turn) and drag_j <= 1):
+        if drag_j > 1:
+            return (wr if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 0 else (wn if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 1 else (wb if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 2 else (wq if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 3 else (wp if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 4 else (wk))))))
         else:
-            return bk            
-def piece_dragging(drag_i, drag_j):
-    if drag_j > 1:
-        return (wr if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 0 else (wn if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 1 else (wb if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 2 else (wq if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 3 else (wp if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 4 else (wk))))))
+            return (br if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 0 else (bn if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 1 else (bb if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 2 else (bq if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 3 else (bp if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 4 else (bk))))))
     else:
-        return (br if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 0 else (bn if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 1 else (bb if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 2 else (bq if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 3 else (bp if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 4 else (bk))))))
+        return piece_superposed(whites_turn, drag_i, drag_j)
 def check_empty(drag_i, drag_j, pick_i, pick_j, i, j):
     if drag_j >= 2: # white pieces
         if offset[drag_i, drag_j, int(6 + offset[drag_i, drag_j, 8])] == 0: # rooks
@@ -906,12 +1118,12 @@ def main():
             for j in range(4):
                 if offset[i, j, 2] == 1 and (drag_i != i or drag_j != j):
                     #piece = (br if (i == 0 or i == 7) else (bn if (i == 1 or i == 6) else (bb if (i == 2 or i == 5) else (bq if i == 3 else bk)))) if (j == 0) else (bp if j == 1 else (wp if j == 2 else (wr if (i == 0 or i == 7) else (wn if (i == 1 or i == 6) else (wb if (i == 2 or i == 5) else (wq if i == 3 else wk))))))
-                    window.blit(piece_still(i, j), (50 + i * 100 + offset[i, j, 0] + ((mouse_x - click_x) if (drag and drag_i == i and drag_j == j) else (0)), 50 + (j + (4 if j > 1 else 0)) * 100 + offset[i, j, 1] + ((mouse_y - click_y) if (drag and drag_i == i and drag_j == j) else (0))))
+                    window.blit(piece_superposed(whites_turn, i, j), (50 + i * 100 + offset[i, j, 0] + ((mouse_x - click_x) if (drag and drag_i == i and drag_j == j) else (0)), 50 + (j + (4 if j > 1 else 0)) * 100 + offset[i, j, 1] + ((mouse_y - click_y) if (drag and drag_i == i and drag_j == j) else (0))))
         for i in range(8):
             for j in range(4):
                 if offset[i, j, 2] == 1 and drag_i == i and drag_j == j:
                     #piece = (br if (i == 0 or i == 7) else (bn if (i == 1 or i == 6) else (bb if (i == 2 or i == 5) else (bq if i == 3 else bk)))) if (j == 0) else (bp if j == 1 else (wp if j == 2 else (wr if (i == 0 or i == 7) else (wn if (i == 1 or i == 6) else (wb if (i == 2 or i == 5) else (wq if i == 3 else wk))))))
-                    window.blit(piece_dragging(drag_i, drag_j), (50 + i * 100 + offset[i, j, 0] + ((mouse_x - click_x) if (drag and drag_i == i and drag_j == j) else (0)), 50 + (j + (4 if j > 1 else 0)) * 100 + offset[i, j, 1] + ((mouse_y - click_y) if (drag and drag_i == i and drag_j == j) else (0))))
+                    window.blit(piece_dragging(whites_turn, drag_i, drag_j), (50 + i * 100 + offset[i, j, 0] + ((mouse_x - click_x) if (drag and drag_i == i and drag_j == j) else (0)), 50 + (j + (4 if j > 1 else 0)) * 100 + offset[i, j, 1] + ((mouse_y - click_y) if (drag and drag_i == i and drag_j == j) else (0))))
         quantum = qchess_font.render("QUANTUM", 1, font_colour)
         chess = qchess_font.render("CHESS", 1, font_colour)
         window.blit(quantum, (1025 - (quantum.get_width() / 2), 70))
@@ -924,3 +1136,7 @@ IBMQ.disable_account()
 
 if __name__ == '__main__':
     main()
+
+
+
+
