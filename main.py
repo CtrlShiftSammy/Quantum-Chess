@@ -207,130 +207,239 @@ def q_choice_minus_pawn(a, i, j, num5):
         return num5[3]
 def piece_superposed(whites_turn, drag_i, drag_j):
     if (whites_turn and drag_j > 1) or (not(whites_turn) and drag_j <= 1):
-        if drag_j > 1:
-            if offset[drag_i, drag_j, 6] == 0:
+        square = (drag_i + offset[drag_i, drag_j, 0] + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset[drag_i, drag_j, 1])
+        if drag_j > 1: #white
+            if offset[drag_i, drag_j, 6] == 0: #option 1 is rook
                 if offset[drag_i, drag_j, 7] == 0:
                     return wr
                 elif offset[drag_i, drag_j, 7] == 1:
-                    if offset[drag_i, drag_j, 8] == 1:
-                        return lwrn1 if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else dwrn2
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwrn2 if (square%2 == 0) else dwrn2
                     else:
-                        return lwrn2 if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else dwrn1
+                        return lwrn1 if (square%2 == 0) else dwrn1
                 elif offset[drag_i, drag_j, 7] == 2:
-                    if offset[drag_i, drag_j, 8] == 1:
-                        return lwrb1 #if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else lwrb2
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwrb2 if (square%2 == 0) else lwrb2
                     else:
-                        return lwrb2 #if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else lwrb1
+                        return lwrb1 if (square%2 == 0) else lwrb1
                 elif offset[drag_i, drag_j, 7] == 3:
-                    if offset[drag_i, drag_j, 8] == 1:
-                        return lwqr2 #if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else dwqr1
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwqr1 if (square%2 == 0) else dwqr1
                     else:
-                        return lwqr1 #if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else dwqr2
+                        return lwqr2 if (square%2 == 0) else dwqr2
                 elif offset[drag_i, drag_j, 7] == 4:
-                    if offset[drag_i, drag_j, 8] == 1:
-                        return lwrp1 #if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else dwrp2
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwrp2 if (square%2 == 0) else dwrp2
                     else:
-                        return lwrp2 #if ((drag_i + offset(drag_i, drag_j, 0) + (drag_j if drag_j <= 1 else (drag_j + 4)) + offset(drag_i, drag_j, 1))%2 == 0) else dwrp1
-            elif offset[drag_i, drag_j, 6] == 1:
+                        return lwrp1 if (square%2 == 0) else dwrp1
+            elif offset[drag_i, drag_j, 6] == 1: #option 1 is knight
                 if offset[drag_i, drag_j, 7] == 0:
-                    return wrn
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwrn1 if (square%2 == 0) else dwrn1
+                    else:
+                        return lwrn2 if (square%2 == 0) else dwrn2
                 elif offset[drag_i, drag_j, 7] == 1:
                     return wn
                 elif offset[drag_i, drag_j, 7] == 2:
-                    return wbn
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwbn1 if (square%2 == 0) else dwbn1
+                    else:
+                        return lwbn2 if (square%2 == 0) else dwbn2
                 elif offset[drag_i, drag_j, 7] == 3:
-                    return wqn
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwqn1 if (square%2 == 0) else dwqn1
+                    else:
+                        return lwqn2 if (square%2 == 0) else dwqn2
                 elif offset[drag_i, drag_j, 7] == 4:
-                    return wnp
-            elif offset[drag_i, drag_j, 6] == 2:
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwnp2 if (square%2 == 0) else dwnp2
+                    else:
+                        return lwnp1 if (square%2 == 0) else dwnp1
+            elif offset[drag_i, drag_j, 6] == 2: #option 1 is bishop
                 if offset[drag_i, drag_j, 7] == 0:
-                    return wrb
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwrb1 if (square%2 == 0) else dwrb1
+                    else:
+                        return lwrb2 if (square%2 == 0) else dwrb2
                 elif offset[drag_i, drag_j, 7] == 1:
-                    return wbn
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwbn2 if (square%2 == 0) else dwbn2
+                    else:
+                        return lwbn1 if (square%2 == 0) else dwbn1
                 elif offset[drag_i, drag_j, 7] == 2:
                     return wb
                 elif offset[drag_i, drag_j, 7] == 3:
-                    return wqb
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwqb1 if (square%2 == 0) else dwqb1
+                    else:
+                        return lwqb2 if (square%2 == 0) else dwqb2
                 elif offset[drag_i, drag_j, 7] == 4:
-                    return wbp
-            elif offset[drag_i, drag_j, 6] == 3:
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwbp2 if (square%2 == 0) else dwbp2
+                    else:
+                        return lwbp1 if (square%2 == 0) else dwbp1
+            elif offset[drag_i, drag_j, 6] == 3: #option 1 is queen
                 if offset[drag_i, drag_j, 7] == 0:
-                    return wqr
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwqr2 if (square%2 == 0) else dwqr2
+                    else:
+                        return lwqr1 if (square%2 == 0) else dwqr1
                 elif offset[drag_i, drag_j, 7] == 1:
-                    return wqn
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwqn2 if (square%2 == 0) else dwqn2
+                    else:
+                        return lwqn1 if (square%2 == 0) else dwqn1
                 elif offset[drag_i, drag_j, 7] == 2:
-                    return wqb
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwqb2 if (square%2 == 0) else dwqb2
+                    else:
+                        return lwqb1 if (square%2 == 0) else dwqb1
                 elif offset[drag_i, drag_j, 7] == 3:
                     return wq
                 elif offset[drag_i, drag_j, 7] == 4:
-                    return wqp
-            elif offset[drag_i, drag_j, 6] == 4:
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwqp2 if (square%2 == 0) else dwqp2
+                    else:
+                        return lwqp1 if (square%2 == 0) else dwqp1
+            elif offset[drag_i, drag_j, 6] == 4: #option 1 is pawn
                 if offset[drag_i, drag_j, 7] == 0:
-                    return wrp
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwrp1 if (square%2 == 0) else dwrp1
+                    else:
+                        return lwrp2 if (square%2 == 0) else dwrp2
                 elif offset[drag_i, drag_j, 7] == 1:
-                    return wnp
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwnp1 if (square%2 == 0) else dwnp1
+                    else:
+                        return lwnp2 if (square%2 == 0) else dwnp2
                 elif offset[drag_i, drag_j, 7] == 2:
-                    return wbp
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwbp1 if (square%2 == 0) else dwbp1
+                    else:
+                        return lwbp2 if (square%2 == 0) else dwbp2
                 elif offset[drag_i, drag_j, 7] == 3:
-                    return wqp
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lwqp1 if (square%2 == 0) else dwqp1
+                    else:
+                        return lwqp2 if (square%2 == 0) else dwqp2
                 elif offset[drag_i, drag_j, 7] == 4:
                     return wp
             else:
                 return wk            
         else:
-            if offset[drag_i, drag_j, 6] == 0:
+            if offset[drag_i, drag_j, 6] == 0: #option 1 is rook
                 if offset[drag_i, drag_j, 7] == 0:
                     return br
                 elif offset[drag_i, drag_j, 7] == 1:
-                    return brn
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbrn2 if (square%2 == 0) else dbrn2
+                    else:
+                        return lbrn1 if (square%2 == 0) else dbrn1
                 elif offset[drag_i, drag_j, 7] == 2:
-                    return brb
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbrb2 if (square%2 == 0) else lbrb2
+                    else:
+                        return lbrb1 if (square%2 == 0) else lbrb1
                 elif offset[drag_i, drag_j, 7] == 3:
-                    return bqr
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbqr1 if (square%2 == 0) else dbqr1
+                    else:
+                        return lbqr2 if (square%2 == 0) else dbqr2
                 elif offset[drag_i, drag_j, 7] == 4:
-                    return brp
-            elif offset[drag_i, drag_j, 6] == 1:
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbrp2 if (square%2 == 0) else dbrp2
+                    else:
+                        return lbrp1 if (square%2 == 0) else dbrp1
+            elif offset[drag_i, drag_j, 6] == 1: #option 1 is knight
                 if offset[drag_i, drag_j, 7] == 0:
-                    return brn
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbrn1 if (square%2 == 0) else dbrn1
+                    else:
+                        return lbrn2 if (square%2 == 0) else dbrn2
                 elif offset[drag_i, drag_j, 7] == 1:
                     return bn
                 elif offset[drag_i, drag_j, 7] == 2:
-                    return bbn
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbbn1 if (square%2 == 0) else dbbn1
+                    else:
+                        return lbbn2 if (square%2 == 0) else dbbn2
                 elif offset[drag_i, drag_j, 7] == 3:
-                    return bqn
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbqn1 if (square%2 == 0) else dbqn1
+                    else:
+                        return lbqn2 if (square%2 == 0) else dbqn2
                 elif offset[drag_i, drag_j, 7] == 4:
-                    return bnp
-            elif offset[drag_i, drag_j, 6] == 2:
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbnp2 if (square%2 == 0) else dbnp2
+                    else:
+                        return lbnp1 if (square%2 == 0) else dbnp1
+            elif offset[drag_i, drag_j, 6] == 2: #option 1 is bishop
                 if offset[drag_i, drag_j, 7] == 0:
-                    return brb
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbrb1 if (square%2 == 0) else dbrb1
+                    else:
+                        return lbrb2 if (square%2 == 0) else dbrb2
                 elif offset[drag_i, drag_j, 7] == 1:
-                    return bbn
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbbn2 if (square%2 == 0) else dbbn2
+                    else:
+                        return lbbn1 if (square%2 == 0) else dbbn1
                 elif offset[drag_i, drag_j, 7] == 2:
                     return bb
                 elif offset[drag_i, drag_j, 7] == 3:
-                    return bqb
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbqb1 if (square%2 == 0) else dbqb1
+                    else:
+                        return lbqb2 if (square%2 == 0) else dbqb2
                 elif offset[drag_i, drag_j, 7] == 4:
-                    return bbp
-            elif offset[drag_i, drag_j, 6] == 3:
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbbp2 if (square%2 == 0) else dbbp2
+                    else:
+                        return lbbp1 if (square%2 == 0) else dbbp1
+            elif offset[drag_i, drag_j, 6] == 3: #option 1 is queen
                 if offset[drag_i, drag_j, 7] == 0:
-                    return bqr
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbqr2 if (square%2 == 0) else dbqr2
+                    else:
+                        return lbqr1 if (square%2 == 0) else dbqr1
                 elif offset[drag_i, drag_j, 7] == 1:
-                    return bqn
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbqn2 if (square%2 == 0) else dbqn2
+                    else:
+                        return lbqn1 if (square%2 == 0) else dbqn1
                 elif offset[drag_i, drag_j, 7] == 2:
-                    return bqb
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbqb2 if (square%2 == 0) else dbqb2
+                    else:
+                        return lbqb1 if (square%2 == 0) else dbqb1
                 elif offset[drag_i, drag_j, 7] == 3:
                     return bq
                 elif offset[drag_i, drag_j, 7] == 4:
-                    return bqp
-            elif offset[drag_i, drag_j, 6] == 4:
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbqp2 if (square%2 == 0) else dbqp2
+                    else:
+                        return lbqp1 if (square%2 == 0) else dbqp1
+            elif offset[drag_i, drag_j, 6] == 4: #option 1 is pawn
                 if offset[drag_i, drag_j, 7] == 0:
-                    return brp
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbrp1 if (square%2 == 0) else dbrp1
+                    else:
+                        return lbrp2 if (square%2 == 0) else dbrp2
                 elif offset[drag_i, drag_j, 7] == 1:
-                    return bnp
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbnp1 if (square%2 == 0) else dbnp1
+                    else:
+                        return lbnp2 if (square%2 == 0) else dbnp2
                 elif offset[drag_i, drag_j, 7] == 2:
-                    return bbp
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbbp1 if (square%2 == 0) else dbbp1
+                    else:
+                        return lbbp2 if (square%2 == 0) else dbbp2
                 elif offset[drag_i, drag_j, 7] == 3:
-                    return bqp
+                    if offset[drag_i, drag_j, 8] == 0:
+                        return lbqp1 if (square%2 == 0) else dbqp1
+                    else:
+                        return lbqp2 if (square%2 == 0) else dbqp2
                 elif offset[drag_i, drag_j, 7] == 4:
                     return bp
             else:
