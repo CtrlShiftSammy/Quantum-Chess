@@ -1245,7 +1245,3 @@ IBMQ.disable_account()
 
 if __name__ == '__main__':
     main()
-
-
-
-
