@@ -145,7 +145,9 @@ lbnp1 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbnp1.p
 lbnp2 = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'lbnp2.png')), (100, 100))
 
 rep = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'replay.png')), (100, 100))
-
+loading = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'loading.png')), (600, 125))
+white_wins = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'whitewins.png')), (500, 100))
+black_wins = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'blackwins.png')), (500, 100))
 offset = np.empty(shape = (8, 4, 9)) 
 # ij0 = x, ij1 = y, 
 # ij2 = 0/1 where 0 is captured, 
@@ -1104,7 +1106,11 @@ def main():
     pick_i = 0
     pick_j = 0
     unmated = True
+    white_won = False
+    black_won = False
     replay = False
+    loading_bool = False
+    load_main = False
     list01x32 = [[0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1]]
     a = qrandom(32)
     for i in range(8):
@@ -1137,6 +1143,8 @@ def main():
     while run:
         clock.tick(fps)
         mouse_x, mouse_y = pygame.mouse.get_pos()
+        if load_main:
+            main()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -1172,6 +1180,10 @@ def main():
                                                 offset[4, (0 if drag_j <= 1 else 3), 4] == 0
                                             if k == 4 and (l == 0 or l == 3):
                                                 unmated = False
+                                                if whites_turn:
+                                                    white_won = True
+                                                else:
+                                                    black_won = True
                                 drag = False
                             if whites_turn:
                                 whites_turn = False
@@ -1204,7 +1216,7 @@ def main():
                         elif drag and (mouse_x > 50 + i * 100) and (mouse_x < 50 + (i + 1) * 100) and (mouse_y > 50 + j * 100) and (mouse_y < 50 + (j + 1) * 100):
                             drag = False
                 if (mouse_x > 975 ) and (mouse_x < 1075 ) and (mouse_y > 250 ) and (mouse_y < 350) and replay:
-                    main()
+                    loading_bool = True
                 else:
                     replay == False
         #window.fill(background_colour)
@@ -1238,6 +1250,14 @@ def main():
         window.blit(quantum, (1025 - (quantum.get_width() / 2), 70))
         window.blit(chess, (1025 - (chess.get_width() / 2), 80 + quantum.get_height()))
         window.blit(rep, (975, 250))
+        if loading_bool:
+            load_main =  True
+            window.blit(loading, (150, 400))
+        elif white_won:
+            window.blit(white_wins, (200, 400))
+        elif black_won:
+            window.blit(black_wins, (200, 400))
+        
         pygame.display.update()
     
     pygame.quit()
